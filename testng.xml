@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+  
+<suite name="riddhiHousingSociety" verbose="1" >
+  
+
+  <listeners>
+  <listener class-name="com.riddhiHousingSociety.utilities.Reporting"></listener>
+  </listeners>
+  
+  <test name="Smoke" >
+  <parameter name="browser"  value="chrome"/>
+    <classes>
+       <class name="com.riddhiHousingSociety.testcases.TC_loginTest_001" />
+    </classes>
+  </test>
+ 
+</suite>
