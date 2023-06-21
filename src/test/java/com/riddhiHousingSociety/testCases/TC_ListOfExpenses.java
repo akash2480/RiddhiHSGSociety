@@ -21,15 +21,21 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-
 import com.riddhiHousingSociety.pageObjects.ListOfExpenses;
-import com.riddhiHousingSociety.pageObjects.AddExpensePage;
-
+import com.riddhiHousingSociety.pageObjects.CommonPageObjects;
 import com.riddhiHousingSociety.pageObjects.LoginPage;
 
 public class TC_ListOfExpenses extends BaseClass {
+	
+	@DataProvider(name = "AddExpenseDataFromGetData")
+	public Object[][] getData() throws IOException 
+	{
+		String filePath = "./src/test/java/com/riddhiHousingSociety/testData/TestAddExpense.xlsx";
+		Object[][] addExpenseData = getExcelMapData(filePath);
 
+		return addExpenseData;
+	}
+	
 	@Test(dataProvider = "AddExpenseDataFromGetData")
 	public void validateExpenseData(Map<String, String> mapData) throws ParseException 
 	{		
@@ -38,16 +44,12 @@ public class TC_ListOfExpenses extends BaseClass {
 		loginpage.setPassword(password);
 		loginpage.clickSubitButton();
 		assertEquals(driver.getTitle(), "Enquiries");
-
-		AddExpensePage addExpensePage = new AddExpensePage(driver);
-		addExpensePage.navigateToExpensesTab();
-
-		ListOfExpenses listOfExpenses = new ListOfExpenses(driver);
-		listOfExpenses.clickListExpenseLink();
 		
-		SoftAssert softAssert = new SoftAssert();
-		softAssert.assertEquals(driver.getTitle(),"List Expenses");
-				
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToExpensesNavigationTab();
+		commonPageObjects.clickListExpenseLink();
+		assertEquals(driver.getTitle(),"List Expenses");
+						
 		LocalDate date = LocalDate.parse(LocalDate.now().toString());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 		String currentDate = formatter.format(date);
@@ -55,6 +57,7 @@ public class TC_ListOfExpenses extends BaseClass {
 		LocalDate beforeFiveDays = date.minusDays(7); 
 		String pastDate = formatter.format(beforeFiveDays);		
 		
+		ListOfExpenses listOfExpenses = new ListOfExpenses(driver);
 		listOfExpenses.setFromDate(pastDate);
 		listOfExpenses.setToDate(currentDate);
 		
@@ -71,16 +74,8 @@ public class TC_ListOfExpenses extends BaseClass {
 		
 		int totalExpenseAmountUser = listOfExpenses.getTotalExpenses();
 		assertEquals(totalExpenseAmountUser, Integer.parseInt(mapData.get("Expense_Amount")));
-
-		if (listOfExpenses.isWebELementPresentOnWebPage(expenseRowData)) 
-		{
-			assertTrue(true);
-		} 
-		else 
-		{
-			assertFalse(true, "Expense data is not available in table");
-		}
-
+		assertEquals(expenseRowData.isDisplayed(), true, "Expense data is not available in table");
+		
 	}
 
 	@Test(dataProvider = "AddExpenseDataFromGetData", dependsOnMethods = "validateExpenseData")
@@ -91,13 +86,14 @@ public class TC_ListOfExpenses extends BaseClass {
 		loginpage.setPassword(password);
 		loginpage.clickSubitButton();
 		assertEquals(driver.getTitle(), "Enquiries");
-
-		AddExpensePage addExpensePage = new AddExpensePage(driver);
-		addExpensePage.navigateToExpensesTab();
-
-		ListOfExpenses listOfExpenses = new ListOfExpenses(driver);
-		listOfExpenses.clickListExpenseLink();
 		
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToExpensesNavigationTab();
+		commonPageObjects.clickListExpenseLink();
+		assertEquals(driver.getTitle(),"List Expenses");
+		
+		ListOfExpenses listOfExpenses = new ListOfExpenses(driver);
+			
 		int totalExpenseAmount = listOfExpenses.getTotalExpenses();
 		
 		listOfExpenses.selectEmployeeFromDropdown(mapData.get("Expense_Done_By"));
@@ -121,19 +117,15 @@ public class TC_ListOfExpenses extends BaseClass {
 		Alert alert = driver.switchTo().alert();
 		String alertMessage = alert.getText();
 		assertEquals(alertMessage, "Are you sure you want to delete this?");
+		
 		alert.dismiss();
 
 		// Explicit Wait
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 		wait.until(ExpectedConditions.elementToBeClickable(expenseRowData));
-
-		if (listOfExpenses.isWebELementPresentOnWebPage(expenseRowData)) 
-		{
-			assertTrue(true);
-		} else {
-			assertTrue(false, "Delete cancel operation Failed. Expense data is not visible in table");
-		}
-
+		
+		assertEquals(expenseRowData.isDisplayed(), true, "Delete cancel operation Failed. Expense data is not visible in table");
+		
 		listOfExpenses.deleteExpenseTableRowData(mapData.get("Expense_Done_By"), mapData.get("Expense_Amount"),
 				mapData.get("Expense_Type"), mapData.get("Expense_Mode"), sdf2.format(parsedDate),
 				mapData.get("Expense_Note"));
@@ -156,28 +148,13 @@ public class TC_ListOfExpenses extends BaseClass {
 			
 		} 
 		assertTrue(true);
-	
-		
-		if (!driver.getPageSource().contains(mapData.get("Expense_Done_By")))
-		{
-			assertTrue(true);
-		} 
-		else 
-		{
-			assertTrue(false, "Delete operation Failed. Expense data is still visible in table");
-		}
-		
+			
+		assertEquals(driver.getPageSource().contains(mapData.get("Expense_Done_By")), false, "Delete operation Failed. Expense data is still visible in table");
+				
 		int totalExpenseAmountUpdated = listOfExpenses.getTotalExpenses();
 		assertEquals(totalExpenseAmountUpdated, (totalExpenseAmount - totalExpenseAmountUser));
 		
 	}
 
-	@DataProvider(name = "AddExpenseDataFromGetData")
-	public Object[][] getData() throws IOException 
-	{
-		String filePath = "./src/test/java/com/riddhiHousingSociety/testData/TestAddExpense.xlsx";
-		Object[][] addExpenseData = getExcelMapData(filePath);
 
-		return addExpenseData;
-	}
 }

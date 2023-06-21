@@ -13,78 +13,60 @@ import com.riddhiHousingSociety.testCases.BaseClass;
 public class AddContentPage extends BaseClass {
 	
 	WebDriver driver;
-	
-	@FindBy(how = How.XPATH, using="//span[text()='Contents']/parent::a")
-	@CacheLookup
-	WebElement contentsNavigationTab;	
-	
-	@FindBy(how=How.XPATH, using="//a[contains(text(),'Add New Content')]")
-	@CacheLookup
-	WebElement addNewContentLink;
-	
+		
 	@FindBy(how=How.NAME, using="sectionname")
 	@CacheLookup	
-	WebElement selectSectionName;
+	private WebElement selectSectionName;
 	
 	@FindBy(how=How.NAME, using="contenttitle")
 	@CacheLookup
-	WebElement contentTitle;
+	private WebElement contentTitle;
 	
 	@FindBy(how=How.NAME, using="price")
 	@CacheLookup
-	WebElement contentPrice;
+	private WebElement contentPrice;
 	
 	@FindBy(how=How.NAME, using="sequence")
 	@CacheLookup
-	WebElement contentSequence;
+	private WebElement contentSequence;
 	
 	@FindBy(how=How.NAME, using="alt_tag")
 	@CacheLookup
-	WebElement contentImageAltTag;
+	private WebElement contentImageAltTag;
 	
 	@FindBy(how=How.NAME, using="contentdesc")
 	@CacheLookup
-	WebElement contentDescription;
+	private WebElement contentDescription;
 	
 	@FindBy(how=How.NAME, using="content_date")
 	@CacheLookup
-	WebElement contentDate;
+	private WebElement contentDate;
 	
 	@FindBy(how=How.NAME, using="content_location")
 	@CacheLookup
-	WebElement contentLocation;
+	private WebElement contentLocation;
 	
 	@FindBy(how=How.NAME, using="link")
 	@CacheLookup
-	WebElement contentLink;
+	private WebElement contentLink;
 	
 	@FindBy(how=How.NAME, using="image_filename")
 	@CacheLookup
-	WebElement contentImage;
+	private WebElement contentImage;
 	
 	@FindBy(how=How.NAME, using="submit")
 	@CacheLookup
-	WebElement contentSubmitBtn;
+	private WebElement contentSubmitBtn;
 	
 	@FindBy(how = How.XPATH, using = "//div[@class=\"alert alert-success\"]")
-	WebElement addContentSuccessMessage;
+	private WebElement addContentSuccessMessage;
 	
 	public AddContentPage(WebDriver driver) 
 	{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	
-	public void navigateToContentsNavigationTab()
-	{
-		contentsNavigationTab.click();
-	}
-	
-	public void clickOnAddNewContentLink()
-	{
-		addNewContentLink.click();
-	}
-	
+		
 	public void selectSectionName(String sectionName)
 	{
 		Select selectSection = new Select(selectSectionName);

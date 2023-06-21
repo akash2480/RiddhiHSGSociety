@@ -9,6 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.riddhiHousingSociety.pageObjects.AddContentPage;
+import com.riddhiHousingSociety.pageObjects.CommonPageObjects;
 import com.riddhiHousingSociety.pageObjects.LoginPage;
 
 public class TC_AddContent extends BaseClass{
@@ -24,9 +25,11 @@ public class TC_AddContent extends BaseClass{
 			lpg.clickSubitButton();
 			log.info("Clicking Submit Button");
 			
+			CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+			commonPageObjects.navigateToContentsNavigationTab();
+			commonPageObjects.clickAddNewContentLink();
+			
 			AddContentPage addContentPage = new AddContentPage(driver);
-			addContentPage.navigateToContentsNavigationTab();
-			addContentPage.clickOnAddNewContentLink();
 			assertEquals(driver.getTitle(),"Add New Content - Riddhi Co-op Housing Society");
 			
 			addContentPage.selectSectionName(mapData.get("Section_Name"));

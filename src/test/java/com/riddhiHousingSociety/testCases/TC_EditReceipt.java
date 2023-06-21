@@ -11,6 +11,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.riddhiHousingSociety.pageObjects.AddReceiptsPage;
+import com.riddhiHousingSociety.pageObjects.CommonPageObjects;
 import com.riddhiHousingSociety.pageObjects.LoginPage;
 import com.riddhiHousingSociety.pageObjects.ViewReceiptsPage;
 
@@ -34,11 +35,15 @@ public class TC_EditReceipt extends BaseClass{
 		loginpage.clickSubitButton();
 		assertEquals(driver.getTitle(), "Enquiries");
 		
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToReceiptsNavigationTab();
+		commonPageObjects.clickViewReceiptsLink();
+		
 		AddReceiptsPage addReceiptsPage = new AddReceiptsPage(driver);
-		addReceiptsPage.navigateToReceiptssNavigationTab();
+		
 		
 		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
-		viewReceiptsPage.clickViewReceiptsLink();
+	;
 		
 		LocalDate date = LocalDate.parse(LocalDate.now().toString());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");

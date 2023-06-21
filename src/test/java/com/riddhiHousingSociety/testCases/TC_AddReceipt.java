@@ -9,6 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.riddhiHousingSociety.pageObjects.AddReceiptsPage;
+import com.riddhiHousingSociety.pageObjects.CommonPageObjects;
 import com.riddhiHousingSociety.pageObjects.LoginPage;
 
 
@@ -22,9 +23,11 @@ public class TC_AddReceipt extends BaseClass{
 			lpg.setPassword(password);
 			lpg.clickSubitButton();
 			
+			CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+			commonPageObjects.navigateToReceiptsNavigationTab();
+			commonPageObjects.clickAddReceiptLink();
+			
 			AddReceiptsPage addReceiptPage = new AddReceiptsPage(driver);
-			addReceiptPage.navigateToReceiptssNavigationTab();
-			addReceiptPage.clickOnAddReceiptLink();
 			assertEquals(driver.getTitle(),"Add Receipt - Riddhi Co-op Housing Society");
 							
 			addReceiptPage.selectReceiptResident(mapData.get("Resident"));

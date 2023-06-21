@@ -12,9 +12,11 @@ public class ViewContentsPage {
 			
 	WebDriver driver;
 	
-	@FindBy(how=How.XPATH, using="//a[contains(text(),'View Contents')]")
-	@CacheLookup
-	WebElement viewContentsLink;
+	/*
+	 * @FindBy(how=How.XPATH, using="//a[contains(text(),'View Contents')]")
+	 * 
+	 * @CacheLookup WebElement viewContentsLink;
+	 */
 	
 	@FindBy(how=How.XPATH, using="//input[@type=\"search\"]")
 	@CacheLookup
@@ -64,11 +66,11 @@ public class ViewContentsPage {
 		return contentId;		
 	}
 	
-	public void clickViewContentsLink()
-	{
-		viewContentsLink.click();
-				
-	}
+	/*
+	 * public void clickViewContentsLink() { viewContentsLink.click();
+	 * 
+	 * }
+	 */
 	
 	//works with contentID as well
 	public void searchContentTitle(String contentTitle) 

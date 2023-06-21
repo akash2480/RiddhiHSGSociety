@@ -11,15 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 public class AddReceiptsPage {
 	
 	WebDriver driver;
-	
-	@FindBy(how = How.XPATH, using="//span[text()=\"Receipt's\"]/parent::a")
-	@CacheLookup
-	WebElement receiptsNavigationTab;	
-	
-	@FindBy(how=How.XPATH, using="//a[contains(text(),'Add Receipt')]")
-	@CacheLookup
-	WebElement addReceiptsLink;
-	
+		
 	@FindBy(how=How.NAME, using="userid")
 	@CacheLookup
 	WebElement receiptSelectResident;
@@ -64,17 +56,7 @@ public class AddReceiptsPage {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	
-	public void navigateToReceiptssNavigationTab()
-	{
-		receiptsNavigationTab.click();
-	}
-	
-	public void clickOnAddReceiptLink()
-	{
-		addReceiptsLink.click();
-	}
-	
+		
 	public void selectReceiptResident(String residentName)
 	{
 		Select selectResident = new Select(receiptSelectResident);
