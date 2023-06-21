@@ -10,9 +10,6 @@ import org.openqa.selenium.support.PageFactory;
 public class SectionsPage {
 	
 	WebDriver driver;
-		
-	@FindBy(how=How.XPATH, using="//span[text()='Sections']/parent::a")
-	public WebElement sectionNavigationTab;
 	
 	@FindBy(how=How.XPATH, using="//*[text()='Add Section']/parent::div//input[@name=\"sectionname\"]")
 	WebElement addSectionInputTextLocator;
@@ -37,12 +34,7 @@ public class SectionsPage {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	
-	public void clickSectionNavigationTab()
-	{
-		sectionNavigationTab.click();
-	}
-	
+		
 	public void setSectionName(String sectionName)
 	{
 		addSectionInputTextLocator.sendKeys(sectionName);

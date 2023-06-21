@@ -11,14 +11,6 @@ import org.openqa.selenium.support.ui.Select;
 public class AddExpensePage {
 	
 	WebDriver driver;
-	
-	@FindBy(how = How.XPATH, using = "//span[text()='Expenses']/parent::a")
-	@CacheLookup
-	public WebElement expensesNavigationTab;
-
-	@FindBy(how = How.XPATH, using = "//a[contains(text(),'Add Expense')]")
-	@CacheLookup
-	public WebElement addExpenseLink;
 		
 	@FindBy(how=How.NAME, using="employee_name")
 	@CacheLookup
@@ -62,16 +54,6 @@ public class AddExpensePage {
 		PageFactory.initElements(driver, this);
 	}
 	
-	public void navigateToExpensesTab()
-	{
-		expensesNavigationTab.click();
-	}
-	
-	public void clickAddExpenseLink()
-	{
-		addExpenseLink.click();
-	}
-		
 	public void setExpenseDoneBy(String employeeName)
 	{
 		expenseDoneBy.sendKeys(employeeName);

@@ -13,15 +13,7 @@ import com.riddhiHousingSociety.testCases.BaseClass;
 public class AddUserPage extends BaseClass {
 
 	WebDriver driver;
-	
-	@FindBy(how = How.XPATH, using = "//span[text()='Users']/parent::a")
-	@CacheLookup
-	public WebElement usersNavigationTab;
-
-	@FindBy(how = How.XPATH, using = "//a[contains(text(),'Add User')]")
-	@CacheLookup
-	WebElement addUserLink;
-	
+		
 	@FindBy(how = How.XPATH, using = "//a[contains(text(),'List Residents')]")
 	@CacheLookup
 	WebElement viewListOfResidentsLink;
@@ -93,14 +85,6 @@ public class AddUserPage extends BaseClass {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-		
-	public void navigateToUsersNavigationTab() {
-		usersNavigationTab.click();
-	}
-
-	public void clickAddUsersLink() {
-		addUserLink.click();
-	}
 
 	public void selectRole(String roleString) {
 		Select selectRole = new Select(role);
@@ -113,10 +97,12 @@ public class AddUserPage extends BaseClass {
 	}
 
 	public void setHouseNumber(String string) {
+		houseNo.clear();
 		houseNo.sendKeys(string);
 	}
 
 	public void setfullName(String fname) {
+		fullName.clear();
 		fullName.sendKeys(fname);
 	}
 
@@ -125,18 +111,22 @@ public class AddUserPage extends BaseClass {
 	}
 
 	public void setPassword(String pwd) {
+		password.clear();
 		password.sendKeys(pwd);
 	}
 
 	public void setAlternateNumber(String altNum) {
+		altNo.clear();
 		altNo.sendKeys(altNum);
 	}
 
 	public void setEmailID(String emailID) {
+		emailId.clear();
 		emailId.sendKeys(emailID);
 	}
 
 	public void setAddress(String addr) {
+		address.clear();
 		address.sendKeys(addr);
 	}
 

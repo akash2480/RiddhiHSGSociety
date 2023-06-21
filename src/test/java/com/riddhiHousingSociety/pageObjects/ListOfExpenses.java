@@ -15,10 +15,6 @@ public class ListOfExpenses {
 
 	WebDriver driver;
 
-	@FindBy(how = How.XPATH, using = "//a[contains(text(),'List Expenses')]")
-	@CacheLookup
-	WebElement listExpensesLink;
-
 	@FindBy(how = How.NAME, using = "from_date")
 	@CacheLookup
 	WebElement expenseFromDate;
@@ -46,12 +42,7 @@ public class ListOfExpenses {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-
-	public void clickListExpenseLink() 
-	{
-		listExpensesLink.click();
-	}
-
+	
 	public void selectEmployeeFromDropdown(String employeeName) 
 	{
 		Select selectEmployee = new Select(expenseSelectEmployee);

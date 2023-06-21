@@ -7,13 +7,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import com.riddhiHousingSociety.pageObjects.AddReceiptsPage;
+import com.riddhiHousingSociety.pageObjects.CommonPageObjects;
 import com.riddhiHousingSociety.pageObjects.LoginPage;
 import com.riddhiHousingSociety.pageObjects.ViewReceiptsPage;
 
@@ -49,14 +48,11 @@ public class TC_ViewReceipts extends BaseClass {
 		loginpage.clickSubitButton();
 		assertEquals(driver.getTitle(), "Enquiries");
 		
-		AddReceiptsPage addReceiptsPage = new AddReceiptsPage(driver);
-		addReceiptsPage.navigateToReceiptssNavigationTab();
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToReceiptsNavigationTab();
+		commonPageObjects.clickViewReceiptsLink();
 		
-		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
-		viewReceiptsPage.clickViewReceiptsLink();
-		
-		SoftAssert softAssert = new SoftAssert();
-		softAssert.assertEquals(driver.getTitle(),"List Of Receipts");
+		assertEquals(driver.getTitle(),"List of Receipts");
 		
 		LocalDate date = LocalDate.parse(LocalDate.now().toString());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -65,6 +61,7 @@ public class TC_ViewReceipts extends BaseClass {
 		LocalDate beforeFiveDays = date.minusDays(7); 
 		String pastDate = formatter.format(beforeFiveDays);		
 		
+		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
 		viewReceiptsPage.setReceiptFromDate(pastDate);
 		viewReceiptsPage.setReceiptToDate(currentDate);
 		viewReceiptsPage.clickReceiptSearchBtn();
@@ -80,13 +77,7 @@ public class TC_ViewReceipts extends BaseClass {
 		WebElement receiptRowData = viewReceiptsPage.getTableRowDataElement(residentName, 
 				mapData.get("Payment_For"), mapData.get("Total_Amount"), mapData.get("Received_Amount"),
 				mapData.get("Balance_Amount"));
-		if(viewReceiptsPage.isWebELementPresentOnWebPage(receiptRowData))
-		{
-			assertTrue(true);
-		}
-		else {
-			assertFalse(true,"Receipt data is not available in table");
-		}
+		assertEquals(receiptRowData.isDisplayed(), true);
 		
 	}
 	
@@ -99,12 +90,10 @@ public class TC_ViewReceipts extends BaseClass {
 		loginpage.clickSubitButton();
 		assertEquals(driver.getTitle(), "Enquiries");
 		
-		AddReceiptsPage addReceiptsPage = new AddReceiptsPage(driver);
-		addReceiptsPage.navigateToReceiptssNavigationTab();
-		
-		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
-		viewReceiptsPage.clickViewReceiptsLink();
-		
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToReceiptsNavigationTab();
+		commonPageObjects.clickViewReceiptsLink();
+						
 		LocalDate date = LocalDate.parse(LocalDate.now().toString());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 		String currentDate = formatter.format(date);
@@ -112,6 +101,7 @@ public class TC_ViewReceipts extends BaseClass {
 		LocalDate beforeFiveDays = date.minusDays(7); 
 		String pastDate = formatter.format(beforeFiveDays);		
 		
+		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
 		viewReceiptsPage.setReceiptFromDate(pastDate);
 		viewReceiptsPage.setReceiptToDate(currentDate);
 		viewReceiptsPage.clickReceiptSearchBtn();
@@ -139,12 +129,10 @@ public class TC_ViewReceipts extends BaseClass {
 		loginpage.clickSubitButton();
 		assertEquals(driver.getTitle(), "Enquiries");
 		
-		AddReceiptsPage addReceiptsPage = new AddReceiptsPage(driver);
-		addReceiptsPage.navigateToReceiptssNavigationTab();
-		
-		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
-		viewReceiptsPage.clickViewReceiptsLink();
-		
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToReceiptsNavigationTab();
+		commonPageObjects.clickViewReceiptsLink();
+			
 		LocalDate date = LocalDate.parse(LocalDate.now().toString());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 		String currentDate = formatter.format(date);
@@ -152,12 +140,15 @@ public class TC_ViewReceipts extends BaseClass {
 		LocalDate beforeSevenDays = date.minusDays(7); 
 		String pastDate = formatter.format(beforeSevenDays);		
 		
+		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
 		viewReceiptsPage.setReceiptFromDate(pastDate);
 		viewReceiptsPage.setReceiptToDate(currentDate);
 		viewReceiptsPage.clickReceiptSearchBtn();
 		viewReceiptsPage.clickActionBtnReceiptTableRowData(receiptNum);
 		viewReceiptsPage.editReceiptTableRowData(receiptNum);
-			
+		
+		//Edit Receipt form is same as Add Receipt
+		AddReceiptsPage addReceiptsPage = new AddReceiptsPage(driver);
 		addReceiptsPage.selectReceiptResident(updatedMapData.get("Resident"));
 		addReceiptsPage.setReceiptPaymentFor(updatedMapData.get("Payment_For"));
 		addReceiptsPage.selectReceiptPaymentMode(updatedMapData.get("Payment_Mode"));
@@ -180,14 +171,11 @@ public class TC_ViewReceipts extends BaseClass {
 		loginpage.clickSubitButton();
 		assertEquals(driver.getTitle(), "Enquiries");
 		
-		AddReceiptsPage addReceiptsPage = new AddReceiptsPage(driver);
-		addReceiptsPage.navigateToReceiptssNavigationTab();
-		
-		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
-		viewReceiptsPage.clickViewReceiptsLink();
-		
-		SoftAssert softAssert = new SoftAssert();
-		softAssert.assertEquals(driver.getTitle(),"List Of Receipts");
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToReceiptsNavigationTab();
+		commonPageObjects.clickViewReceiptsLink();
+				
+		assertEquals(driver.getTitle(),"List of Receipts");
 		
 		LocalDate date = LocalDate.parse(LocalDate.now().toString());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -196,25 +184,19 @@ public class TC_ViewReceipts extends BaseClass {
 		LocalDate beforeFiveDays = date.minusDays(7); 
 		String pastDate = formatter.format(beforeFiveDays);		
 		
+		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
 		viewReceiptsPage.setReceiptFromDate(pastDate);
 		viewReceiptsPage.setReceiptToDate(currentDate);
 		viewReceiptsPage.clickReceiptSearchBtn();
-		
-		
+				
 		String[] str1 = updatedMapData.get("Resident").split("\\(");
 		String residentName = str1[0].trim();
 				
 		WebElement receiptRowData = viewReceiptsPage.getTableRowDataElement(receiptNum, residentName, 
 				updatedMapData.get("Payment_For"), updatedMapData.get("Total_Amount"), updatedMapData.get("Received_Amount"),
 				updatedMapData.get("Balance_Amount"));
-		if(viewReceiptsPage.isWebELementPresentOnWebPage(receiptRowData))
-		{
-			assertTrue(true);
-		}
-		else {
-			assertFalse(true,"Receipt data is not available in table");
-		}
-		
+		assertEquals(receiptRowData.isDisplayed(),true);
+				
 	}
 	
 	@Test(priority=5,enabled=true,dependsOnMethods = "validateUpdatedReceiptInTableView" , dataProvider="EditReceiptDataFromGetData")
@@ -226,12 +208,10 @@ public class TC_ViewReceipts extends BaseClass {
 		loginpage.clickSubitButton();
 		assertEquals(driver.getTitle(), "Enquiries");
 		
-		AddReceiptsPage addReceiptsPage = new AddReceiptsPage(driver);
-		addReceiptsPage.navigateToReceiptssNavigationTab();
-		
-		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
-		viewReceiptsPage.clickViewReceiptsLink();
-		
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToReceiptsNavigationTab();
+		commonPageObjects.clickViewReceiptsLink();
+				
 		LocalDate date = LocalDate.parse(LocalDate.now().toString());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 		String currentDate = formatter.format(date);
@@ -239,6 +219,7 @@ public class TC_ViewReceipts extends BaseClass {
 		LocalDate beforeFiveDays = date.minusDays(7); 
 		String pastDate = formatter.format(beforeFiveDays);		
 		
+		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
 		viewReceiptsPage.setReceiptFromDate(pastDate);
 		viewReceiptsPage.setReceiptToDate(currentDate);
 		viewReceiptsPage.clickReceiptSearchBtn();

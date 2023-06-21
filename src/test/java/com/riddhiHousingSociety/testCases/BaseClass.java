@@ -103,7 +103,7 @@ public class BaseClass {
 	public static Object[][] getExcelMapData(String excelFilePath) throws IOException
 	{
 		int rowCount = XLUtils.getRowCount(excelFilePath, "Sheet1");
-		//System.out.println(rowCount);
+				
 		int colCount = XLUtils.getCellCount(excelFilePath, "Sheet1", 1);
 		DataFormatter formatter = new DataFormatter();
 		

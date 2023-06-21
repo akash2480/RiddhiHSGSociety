@@ -12,9 +12,11 @@ public class ViewReceiptsPage {
 		
 	WebDriver driver;
 	
-	@FindBy(how=How.XPATH, using="//a[contains(text(),\"View Receipt's\")]")
-	@CacheLookup
-	WebElement viewReceiptsLink;
+	/*
+	 * @FindBy(how=How.XPATH, using="//a[contains(text(),\"View Receipt's\")]")
+	 * 
+	 * @CacheLookup WebElement viewReceiptsLink;
+	 */
 	
 	@FindBy(how=How.NAME, using="from_date")
 	@CacheLookup
@@ -37,11 +39,9 @@ public class ViewReceiptsPage {
 		PageFactory.initElements(driver, this);
 	}
 	
-	public void clickViewReceiptsLink() 
-	{
-		viewReceiptsLink.click();
-	}
-	
+	/*
+	 * public void clickViewReceiptsLink() { viewReceiptsLink.click(); }
+	 */
 	public void setReceiptFromDate(String rFromDate)
 	{
 		receiptFromDate.click();

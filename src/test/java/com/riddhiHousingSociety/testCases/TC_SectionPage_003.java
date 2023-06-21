@@ -9,6 +9,7 @@ import java.util.Properties;
 import org.testng.annotations.Test;
 
 import com.riddhiHousingSociety.pageObjects.LoginPage;
+import com.riddhiHousingSociety.pageObjects.CommonPageObjects;
 import com.riddhiHousingSociety.pageObjects.SectionsPage;
 
 public class TC_SectionPage_003 extends BaseClass {
@@ -26,14 +27,15 @@ public class TC_SectionPage_003 extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		SectionsPage sectionPage = new SectionsPage(driver);
-		sectionPage.clickSectionNavigationTab();  
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToSectionsNavigationTab();
 		log.info("Navigate To Sections Page");
-		
+				
 		FileReader reader = new FileReader("./src/test/java/com/riddhiHousingSociety/testData/SingleUsageData.properties");
 		Properties properties = new Properties();
 		properties.load(reader);
 		
+		SectionsPage sectionPage = new SectionsPage(driver);
 		String sectionName = properties.getProperty("sectionName")+randomAlphaNumeric(7);
 		sectionPage.setSectionName(sectionName);
 		log.info("Set a unique Section Name in Add New Section");
@@ -52,7 +54,7 @@ public class TC_SectionPage_003 extends BaseClass {
 				
 	}
 	
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void validateAddSectionWithDuplicateSectionName()
 	{
 		LoginPage lpg = new LoginPage(driver);
@@ -63,9 +65,12 @@ public class TC_SectionPage_003 extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		SectionsPage sectionPage = new SectionsPage(driver);
-		sectionPage.clickSectionNavigationTab();
 		
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToSectionsNavigationTab();
+		
+		SectionsPage sectionPage = new SectionsPage(driver);
+				
 		//Input Already existing data in the application
 		sectionPage.setSectionName("Role");
 		sectionPage.clickAddSectionSubmitBtn();

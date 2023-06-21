@@ -14,6 +14,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.riddhiHousingSociety.pageObjects.AddContentPage;
+import com.riddhiHousingSociety.pageObjects.CommonPageObjects;
 import com.riddhiHousingSociety.pageObjects.LoginPage;
 import com.riddhiHousingSociety.pageObjects.ViewContentsPage;
 
@@ -54,11 +55,11 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		AddContentPage addContentPage = new AddContentPage(driver);
-		addContentPage.navigateToContentsNavigationTab();
-		
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToContentsNavigationTab();
+		commonPageObjects.clickViewContentsLink();
+				
 		ViewContentsPage viewContentsPage = new ViewContentsPage(driver);
-		viewContentsPage.clickViewContentsLink();
 		assertEquals(driver.getTitle(), "Content - Riddhi Co-op Housing Society");
 		
 		contentTitle = mapData.get("Title");
@@ -83,12 +84,11 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		AddContentPage addContentPage = new AddContentPage(driver);
-		addContentPage.navigateToContentsNavigationTab();
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToContentsNavigationTab();
+		commonPageObjects.clickViewContentsLink();
 		
 		ViewContentsPage viewContentsPage = new ViewContentsPage(driver);
-		viewContentsPage.clickViewContentsLink();
-		
 		viewContentsPage.searchContentTitle(contentTitle);
 		
 		viewContentsPage.clickActionsBtnViewContent(contentId);
@@ -111,9 +111,7 @@ public class TC_ViewContents extends BaseClass {
 		assertEquals(viewContentsPage.getcontentLink(), mapData.get("Link"));
 					
 	}
-	
-	
-	
+		
 	@Test(priority=3, enabled=true, dependsOnMethods="validateViewContentInTableView")
 	public void addPhotosContentFromActionsEditLink() 
 	{
@@ -125,12 +123,12 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 						
-		AddContentPage addContentPage = new AddContentPage(driver);
-		addContentPage.navigateToContentsNavigationTab();
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToContentsNavigationTab();
+		commonPageObjects.clickViewContentsLink();
 		
 		ViewContentsPage viewContentsPage = new ViewContentsPage(driver);
-		viewContentsPage.clickViewContentsLink();
-		
+			
 		viewContentsPage.searchContentTitle(contentTitle);
 		
 		viewContentsPage.clickActionsBtnViewContent(contentId);
@@ -178,12 +176,12 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 						
-		AddContentPage addContentPage = new AddContentPage(driver);
-		addContentPage.navigateToContentsNavigationTab();
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToContentsNavigationTab();
+		commonPageObjects.clickViewContentsLink();
 		
 		ViewContentsPage viewContentsPage = new ViewContentsPage(driver);
-		viewContentsPage.clickViewContentsLink();
-		
+			
 		viewContentsPage.searchContentTitle(contentTitle);
 		
 		viewContentsPage.clickActionsBtnViewContent(contentId);
@@ -203,10 +201,11 @@ public class TC_ViewContents extends BaseClass {
 		
 		assertEquals(viewContentsPage.getAddVideoLinkSuccessMsg(), "Success!Video added Successfully");
 		assertEquals(viewContentsPage.getAddVideoLinkIFrame().isEnabled(), true);
+		
+		//video is in iframe
 		assertEquals(driver.getPageSource().contains("iframe"),true );
 		
-		//assertEquals(viewContentsPage.getAddVideoLinkSubString().contains(expectedYTLinkSubstring),true);
-		
+		//assertEquals(viewContentsPage.getAddVideoLinkSubString().contains(expectedYTLinkSubstring),true);		
 		
 		viewContentsPage.deleteAddedVideoLink(expectedYTLinkSubstring);
 		
@@ -240,12 +239,11 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		AddContentPage addContentPage = new AddContentPage(driver);
-		addContentPage.navigateToContentsNavigationTab();
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToContentsNavigationTab();
+		commonPageObjects.clickViewContentsLink();		
 		
 		ViewContentsPage viewContentsPage = new ViewContentsPage(driver);
-		viewContentsPage.clickViewContentsLink();
-		
 		viewContentsPage.searchContentTitle(contentTitle);
 		
 		viewContentsPage.clickActionsBtnViewContent(contentId);
@@ -253,6 +251,8 @@ public class TC_ViewContents extends BaseClass {
 				
 		assertEquals(driver.getTitle(),"Edit Content - Riddhi Co-op Housing Society");
 		
+		//Edit content field locators are same as Add content
+		AddContentPage addContentPage = new AddContentPage(driver);
 		addContentPage.selectSectionName(mapUpdatedData.get("Section_Name"));
 		addContentPage.setContentTitle(mapUpdatedData.get("Title"));
 		addContentPage.setContentPrice(mapUpdatedData.get("Price"));
@@ -264,7 +264,8 @@ public class TC_ViewContents extends BaseClass {
 		addContentPage.setContentLink(mapUpdatedData.get("Link"));
 		addContentPage.setContentImage("C:\\eclipse-workspace\\riddhiHousingSociety\\Screenshot_8.jpg");	
 		addContentPage.clickOnSubmitButton();
-		//no success message
+		
+		//no success message. Handle redirects to view Content Table page
 		//assertEquals(addContentPage.getAddContentSuccessMessage(), "Success!content added Successfully...");
 					
 	}
@@ -280,14 +281,13 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		AddContentPage addContentPage = new AddContentPage(driver);
-		addContentPage.navigateToContentsNavigationTab();
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToContentsNavigationTab();
+		commonPageObjects.clickViewContentsLink();	
 		
 		ViewContentsPage viewContentsPage = new ViewContentsPage(driver);
-		viewContentsPage.clickViewContentsLink();
-		
+			
 		viewContentsPage.searchContentTitle(contentId);
-		
 		viewContentsPage.clickActionsBtnViewContent(contentId);
 		viewContentsPage.clickActionViewBtnViewContent(contentId);
 		
