@@ -309,6 +309,33 @@ public class TC_ViewContents extends BaseClass {
 					
 	}
 	
+	public void validateShowEntriesCount()
+	{	
+		LoginPage lpg = new LoginPage(driver);
+		lpg.setUserName(userName);
+		log.info("Entering Username");
+		lpg.setPassword(password);
+		log.info("Entering Password");
+		lpg.clickSubitButton();
+		log.info("Clicking Submit Button");
+		
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToSectionsNavigationTab();
+		
+		selectShowEntries(10);
+		assertEquals(getRowCountTable()<=10, true, "Show Entries is not working as expected");
+				
+		selectShowEntries(25);
+		assertEquals(getRowCountTable()<=25, true, "Show Entries is not working as expected");
+		
+		selectShowEntries(50);
+		assertEquals(getRowCountTable()<=50, true, "Show Entries is not working as expected");
+		
+		selectShowEntries(100);
+		assertEquals(getRowCountTable()<=100, true, "Show Entries is not working as expected");
+		
+	}
+	
 	
 
 

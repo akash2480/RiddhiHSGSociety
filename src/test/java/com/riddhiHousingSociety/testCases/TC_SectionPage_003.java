@@ -16,7 +16,7 @@ public class TC_SectionPage_003 extends BaseClass {
 	
 	static String sectionID;
 	
-	@Test	
+	@Test(enabled=true)	
 	public void validateAddSection() throws IOException
 	{
 		LoginPage lpg = new LoginPage(driver);
@@ -63,8 +63,7 @@ public class TC_SectionPage_003 extends BaseClass {
 		lpg.setPassword(password);
 		log.info("Entering Password");
 		lpg.clickSubitButton();
-		log.info("Clicking Submit Button");
-		
+		log.info("Clicking Submit Button");		
 		
 		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
 		commonPageObjects.navigateToSectionsNavigationTab();
@@ -78,6 +77,83 @@ public class TC_SectionPage_003 extends BaseClass {
 		assertEquals(sectionPage.getAddSectionErrorMessage(), "Error!This sections already exists!!!");
 	}
 	
+	@Test(enabled = true)
+	public void validateShowEntriesCount()
+	{	
+		LoginPage lpg = new LoginPage(driver);
+		lpg.setUserName(userName);
+		log.info("Entering Username");
+		lpg.setPassword(password);
+		log.info("Entering Password");
+		lpg.clickSubitButton();
+		log.info("Clicking Submit Button");
+		
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToSectionsNavigationTab();
+		
+		selectShowEntries(10);
+		assertEquals(getRowCountTable()<=10, true, "Show Entries is not working as expected");
+				
+		selectShowEntries(25);
+		assertEquals(getRowCountTable()<=25, true, "Show Entries is not working as expected");
+		
+		selectShowEntries(50);
+		assertEquals(getRowCountTable()<=50, true, "Show Entries is not working as expected");
+		
+		selectShowEntries(100);
+		assertEquals(getRowCountTable()<=100, true, "Show Entries is not working as expected");
+		
+	}
+	
+	@Test(enabled = true)
+	public void paginationFunc()
+	{	
+		LoginPage lpg = new LoginPage(driver);
+		lpg.setUserName(userName);
+		log.info("Entering Username");
+		lpg.setPassword(password);
+		log.info("Entering Password");
+		lpg.clickSubitButton();
+		log.info("Clicking Submit Button");
+		
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		commonPageObjects.navigateToSectionsNavigationTab();
+				
+		////////////////////////////
+		
+
+		
+		
+		////////////////////////////
+				
+		int noOfPages = commonPageObjects.getNumberOfPagesCount();
+		
+		String isPreviousBtnClassAttr = commonPageObjects.getPreviousBtnAttribute("class");
+		assertEquals(isPreviousBtnClassAttr.contains("disabled"), true, "Previous button is not disabled");
+				
+		if (noOfPages>1)
+		{	
+			do
+			{	
+				String isNextBtnClassAttr = commonPageObjects.getNextBtnAttribute("class");
+				if(!isNextBtnClassAttr.contains("disabled"))
+				{
+					commonPageObjects.clickNextBtnPagination();
+				}
+				else
+				{
+					break;
+				}
+			}
+			while(true);				
+		}
+		else
+		{
+			System.out.println("No Pagination in this page");
+		}
+		
+		
+	}
 	
 	
 }
