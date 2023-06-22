@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -17,13 +18,15 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -31,6 +34,8 @@ import org.testng.annotations.Parameters;
 
 import com.riddhiHousingSociety.utilities.ReadConfig;
 import com.riddhiHousingSociety.utilities.XLUtils;
+
+import com.riddhiHousingSociety.pageObjects.*;
 
 public class BaseClass {
 	
@@ -153,5 +158,18 @@ public class BaseClass {
 		String expectedDate = sdf2.format(parsedDate);
 		return expectedDate;
 	}
+	
+	public static void selectShowEntries(int entriesCount)
+	{	
+		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		Select selectEntriesCount = new Select(commonPageObjects.getSelectShowEntriesLocator());
+		selectEntriesCount.selectByVisibleText(Integer.toString(entriesCount));
+	}
+	
+	public static int getRowCountTable()
+	{
+		List<WebElement> noOfRows = driver.findElements(By.xpath("//table/tbody//tr"));
+		return noOfRows.size();
+	}	
 	
 }

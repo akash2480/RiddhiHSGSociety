@@ -142,13 +142,12 @@ public class TC_ListOfExpenses extends BaseClass {
 		{
 			if(eachWebElement.getText().equals(mapData.get("Expense_Done_By")))
 			{
-				assertFalse(true);
+				assertFalse(true,"Employee is still available");
 				break;
 			}
 			
 		} 
-		assertTrue(true);
-			
+					
 		assertEquals(driver.getPageSource().contains(mapData.get("Expense_Done_By")), false, "Delete operation Failed. Expense data is still visible in table");
 				
 		int totalExpenseAmountUpdated = listOfExpenses.getTotalExpenses();
