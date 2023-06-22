@@ -6,7 +6,6 @@ import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
-
 public class CommonPageObjects {
 	
 	WebDriver driver;
@@ -74,6 +73,22 @@ public class CommonPageObjects {
 	@FindBy(how = How.XPATH, using = "//a[contains(text(),'List Expenses')]")
 	@CacheLookup
 	private WebElement listExpensesLink;
+	
+	@FindBy(how=How.NAME, using="sampleTable_length")
+	@CacheLookup
+	private WebElement showEntriesCount;
+	
+	@FindBy(how=How.ID, using = "sampleTable_paginate")
+	private WebElement paginationFooter;
+	
+	@FindBy(how=How.XPATH, using = "(//*[@id='sampleTable_paginate']//a)[last()-1]")
+	private WebElement pagesCount;
+	
+	@FindBy(how=How.ID, using="sampleTable_previous")
+	private WebElement previousBtnPagination;
+	
+	@FindBy(how=How.ID, using="sampleTable_next")
+	private WebElement nextBtnPagination;
 	
 	public CommonPageObjects(WebDriver driver)
 	{
@@ -146,5 +161,37 @@ public class CommonPageObjects {
 		listExpensesLink.click();
 	}
 	
+	public WebElement getSelectShowEntriesLocator()
+	{
+		return showEntriesCount;
+	}
+	
+	public int getNumberOfPagesCount()
+	{
+		return Integer.parseInt(pagesCount.getText());	
+	}
+	
+	public String getPreviousBtnAttribute(String attributeName)
+	{
+		String previousBtnAttr =  previousBtnPagination.getAttribute(attributeName);
+		return previousBtnAttr;
+	}
+	
+	public String getNextBtnAttribute(String attributeName)
+	{
+		String previousBtnAttr =  nextBtnPagination.getAttribute(attributeName);
+		return previousBtnAttr;
+	}
+	
+	public void clickNextBtnPagination()
+	{
+		nextBtnPagination.click();
+		
+	}
+	
+	public void clickPreviousBtnPagination()
+	{
+		previousBtnPagination.click();
+	}
 	
 }
