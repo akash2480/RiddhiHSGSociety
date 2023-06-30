@@ -81,7 +81,7 @@ public class BaseClass {
 	public void teardown() throws InterruptedException 
 	{
 		
-		//driver.quit();
+		driver.quit();
 		
 	}
 	
