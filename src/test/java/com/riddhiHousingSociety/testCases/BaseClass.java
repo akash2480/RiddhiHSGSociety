@@ -56,15 +56,18 @@ public class BaseClass {
 		
 		if(br.equals("chrome"))
 		{
-			driver = new ChromeDriver();			
+			driver = new ChromeDriver();
+			log.info("Launching Chrome Browser");
 		}
 		else if(br.equals("firefox"))
 		{
 			driver = new FirefoxDriver();
+			log.info("Launching Firefox Browser");
 		}
 		else 
 		{	if(br.equals("edge"))
 			driver = new EdgeDriver();
+			log.info("Launching Edge Browser");
 		}
 	
 		driver.get(url);
@@ -81,7 +84,8 @@ public class BaseClass {
 	public void teardown() throws InterruptedException 
 	{
 		
-		//driver.quit();
+		driver.quit();
+		log.info("Closing the Browser");
 		
 	}
 	

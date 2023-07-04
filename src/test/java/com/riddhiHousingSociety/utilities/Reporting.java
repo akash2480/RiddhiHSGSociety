@@ -49,6 +49,7 @@ public class Reporting extends BaseClass implements ITestListener {
 
 		logger = extentReports.createTest(iTestResult.getName());
 		logger.log(Status.PASS, MarkupHelper.createLabel(iTestResult.getName(), ExtentColor.GREEN));
+		log.info(iTestResult.getMethod().getMethodName()+" Testcase passed");
 
 	}
 
@@ -65,11 +66,11 @@ public class Reporting extends BaseClass implements ITestListener {
 		String screenShotName = iTestResult.getMethod().getMethodName() + timeStampString + ".png";
 		String screenShotPath = "./Screenshots/" + screenShotName;
 		//System.out.println(screenShotPath);
-
+		log.info(iTestResult.getMethod().getMethodName()+" Testcase failed");
 		captureScreenshot(iTestResult.getName());
 
 		logger.fail(MediaEntityBuilder.createScreenCaptureFromPath(screenShotPath, iTestResult.getName()).build());
-
+		
 	}
 
 	public void onTestSkipped(ITestResult iTestResult) {

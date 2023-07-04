@@ -42,7 +42,7 @@ public class TC_AddUser_001 extends BaseClass{
 				
 		assertEquals(driver.getTitle(),"Add User - Riddhi Co-op Housing Society");
 						
-		//addUser.selectRole(mapData.get("Role"));
+		addUser.selectRole(mapData.get("Role"));
 		addUser.selectWingNumber(mapData.get("Wing_House"));
 		addUser.setHouseNumber(mapData.get("House_No"));
 		addUser.setfullName(mapData.get("Full_Name"));
