@@ -7,7 +7,6 @@
 		<File name="LogToFile" fileName="logs/app.log">
 			<PatternLayout pattern="%d - %C [%M] -(%p) %m %n" />
 		</File>
-		>
 	</Appenders>
 	<Loggers>
 		<Root level="info">
