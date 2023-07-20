@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -18,15 +17,12 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.DataFormatter;
-import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -35,60 +31,79 @@ import org.testng.annotations.Parameters;
 import com.riddhiHousingSociety.utilities.ReadConfig;
 import com.riddhiHousingSociety.utilities.XLUtils;
 
-import com.riddhiHousingSociety.pageObjects.*;
-
 public class BaseClass {
 	
-	public static WebDriver driver;
+	protected ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+		
 	ReadConfig readConfig = new ReadConfig();	
 		
 	public String url = readConfig.getApplicationUrl();
+	//String browser2 = readConfig.getPropertyValue("browser");
 	public String userName = readConfig.getUserName();
 	public String password = readConfig.getPassword();
 	public static Logger log;
 	
+	public void setDriver(WebDriver driver)
+	{
+		this.driver.set(driver);
+	}
+	
+	public WebDriver getDriver()
+	{
+		return this.driver.get();
+	}
+		
+	
 	@Parameters({"browser"})
 	@BeforeMethod
-	public void setup(@Optional("chrome") String br)
+	public void setup(@Optional("chrome") String browser)
+	{	
+		log = LogManager.getLogger(BaseClass.class);
+		setupBrowserDriver(browser);
+		getDriver().manage().window().maximize();
+		log.info("Maximizing window");	
+		getDriver().get(url);
+		log.info("Opening URL");
+		
+		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));		
+	}
+	
+	public void setupBrowserDriver(String browserName)
 	{	
 		log = LogManager.getLogger(BaseClass.class);
 		
-		
-		if(br.equals("chrome"))
+		switch(browserName)
 		{
-			driver = new ChromeDriver();
-			log.info("Launching Chrome Browser");
+			case "chrome":
+				setDriver(new ChromeDriver());
+				log.info("Launching Chrome Browser");
+				break;
+				
+			case "firefox":
+				setDriver(new FirefoxDriver());
+				log.info("Launching Firefox Browser");
+				break;
+				
+			case "edge":
+				setDriver(new EdgeDriver());
+				log.info("Launching Edge Browser");
+				break;
+				
+			default:
+				throw new IllegalArgumentException("Invalid browser specified: "+browserName);			
 		}
-		else if(br.equals("firefox"))
-		{
-			driver = new FirefoxDriver();
-			log.info("Launching Firefox Browser");
-		}
-		else 
-		{	if(br.equals("edge"))
-			driver = new EdgeDriver();
-			log.info("Launching Edge Browser");
-		}
-	
-		driver.get(url);
-		log.info("Opening URL");
-		driver.manage().window().maximize();
-		log.info("Maximizing window");
 		
-		//Set up implicit wait here
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-		
-	}
-	
+	}	
+			
 	@AfterMethod
 	public void teardown() throws InterruptedException 
 	{
 		
-		driver.quit();
+		getDriver().quit();
 		log.info("Closing the Browser");
 		
 	}
-	
+		
 	public void captureScreenshot(String fileName)
 	{	
 		DateTimeFormatter formatedDateTime = DateTimeFormatter.ofPattern("ddMMYY_HHmmss");
@@ -163,6 +178,7 @@ public class BaseClass {
 		return expectedDate;
 	}
 	
+	/*
 	public static void selectShowEntries(int entriesCount)
 	{	
 		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
@@ -170,10 +186,11 @@ public class BaseClass {
 		selectEntriesCount.selectByVisibleText(Integer.toString(entriesCount));
 	}
 	
+	/*
 	public static int getRowCountTable()
 	{
-		List<WebElement> noOfRows = driver.findElements(By.xpath("//table/tbody//tr"));
+		List<WebElement> noOfRows = getDriver().findElements(By.xpath("//table/tbody//tr"));
 		return noOfRows.size();
-	}	
+	}*/	
 	
 }

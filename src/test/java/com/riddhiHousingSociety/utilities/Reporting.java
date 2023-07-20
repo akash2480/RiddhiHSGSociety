@@ -14,6 +14,7 @@ import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.riddhiHousingSociety.testCases.BaseClass;
 
 public class Reporting extends BaseClass implements ITestListener {
@@ -30,13 +31,18 @@ public class Reporting extends BaseClass implements ITestListener {
 		String reportName = "./test-output/test-report/Test-Report_"+ timeStampString + ".html";
 		
 		sparkReporter = new ExtentSparkReporter(reportName);
+		/*
 		try {
 			sparkReporter.loadXMLConfig("./src/test/resources/extent-reports-config.xml");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		*/
+		sparkReporter.config().setTheme(Theme.DARK);
+		sparkReporter.config().setDocumentTitle("RestAssuredAutomationProject");
+		sparkReporter.config().setReportName("Pet Store Users API");
+		
 		extentReports = new ExtentReports();
 		extentReports.attachReporter(sparkReporter);
 		extentReports.setSystemInfo("HostName", "localhost");

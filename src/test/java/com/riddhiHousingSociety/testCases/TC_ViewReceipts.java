@@ -42,17 +42,17 @@ public class TC_ViewReceipts extends BaseClass {
 	public void validateReceiptInTableView(Map<String,String>mapData)
 	{
 		
-		LoginPage loginpage = new LoginPage(driver);
+		LoginPage loginpage = new LoginPage(getDriver());
 		loginpage.setUserName(userName);
 		loginpage.setPassword(password);
 		loginpage.clickSubitButton();
-		assertEquals(driver.getTitle(), "Enquiries");
+		assertEquals(getDriver().getTitle(), "Enquiries");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToReceiptsNavigationTab();
 		commonPageObjects.clickViewReceiptsLink();
 		
-		assertEquals(driver.getTitle(),"List of Receipts");
+		assertEquals(getDriver().getTitle(),"List of Receipts");
 		
 		LocalDate date = LocalDate.parse(LocalDate.now().toString());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -61,7 +61,7 @@ public class TC_ViewReceipts extends BaseClass {
 		LocalDate beforeFiveDays = date.minusDays(7); 
 		String pastDate = formatter.format(beforeFiveDays);		
 		
-		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
+		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(getDriver());
 		viewReceiptsPage.setReceiptFromDate(pastDate);
 		viewReceiptsPage.setReceiptToDate(currentDate);
 		viewReceiptsPage.clickReceiptSearchBtn();
@@ -84,13 +84,13 @@ public class TC_ViewReceipts extends BaseClass {
 	@Test(priority=2,enabled=true,dependsOnMethods = "validateReceiptInTableView" , dataProvider="AddReceiptDataFromGetData")
 	public void validateReceiptInvoiceFromViewBtn(Map<String,String>mapData)
 	{
-		LoginPage loginpage = new LoginPage(driver);
+		LoginPage loginpage = new LoginPage(getDriver());
 		loginpage.setUserName(userName);
 		loginpage.setPassword(password);
 		loginpage.clickSubitButton();
-		assertEquals(driver.getTitle(), "Enquiries");
+		assertEquals(getDriver().getTitle(), "Enquiries");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToReceiptsNavigationTab();
 		commonPageObjects.clickViewReceiptsLink();
 						
@@ -101,13 +101,13 @@ public class TC_ViewReceipts extends BaseClass {
 		LocalDate beforeFiveDays = date.minusDays(7); 
 		String pastDate = formatter.format(beforeFiveDays);		
 		
-		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
+		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(getDriver());
 		viewReceiptsPage.setReceiptFromDate(pastDate);
 		viewReceiptsPage.setReceiptToDate(currentDate);
 		viewReceiptsPage.clickReceiptSearchBtn();
 		viewReceiptsPage.clickViewiewReceiptBtn(receiptNum);
 		
-		String pageSource = driver.getPageSource();
+		String pageSource = getDriver().getPageSource();
 		
 		String[] str1 = mapData.get("Resident").split("\\(");
 		String residentName = str1[0].trim();
@@ -123,13 +123,13 @@ public class TC_ViewReceipts extends BaseClass {
 	@Test(priority=3, enabled=true, dataProvider="EditReceiptDataFromGetData", dependsOnMethods = "validateReceiptInTableView")
 	public void editReceipt(Map<String,String>updatedMapData)
 	{
-		LoginPage loginpage = new LoginPage(driver);
+		LoginPage loginpage = new LoginPage(getDriver());
 		loginpage.setUserName(userName);
 		loginpage.setPassword(password);
 		loginpage.clickSubitButton();
-		assertEquals(driver.getTitle(), "Enquiries");
+		assertEquals(getDriver().getTitle(), "Enquiries");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToReceiptsNavigationTab();
 		commonPageObjects.clickViewReceiptsLink();
 			
@@ -140,7 +140,7 @@ public class TC_ViewReceipts extends BaseClass {
 		LocalDate beforeSevenDays = date.minusDays(7); 
 		String pastDate = formatter.format(beforeSevenDays);		
 		
-		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
+		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(getDriver());
 		viewReceiptsPage.setReceiptFromDate(pastDate);
 		viewReceiptsPage.setReceiptToDate(currentDate);
 		viewReceiptsPage.clickReceiptSearchBtn();
@@ -148,7 +148,7 @@ public class TC_ViewReceipts extends BaseClass {
 		viewReceiptsPage.editReceiptTableRowData(receiptNum);
 		
 		//Edit Receipt form is same as Add Receipt
-		AddReceiptsPage addReceiptsPage = new AddReceiptsPage(driver);
+		AddReceiptsPage addReceiptsPage = new AddReceiptsPage(getDriver());
 		addReceiptsPage.selectReceiptResident(updatedMapData.get("Resident"));
 		addReceiptsPage.setReceiptPaymentFor(updatedMapData.get("Payment_For"));
 		addReceiptsPage.selectReceiptPaymentMode(updatedMapData.get("Payment_Mode"));
@@ -165,17 +165,17 @@ public class TC_ViewReceipts extends BaseClass {
 	public void validateUpdatedReceiptInTableView(Map<String,String>updatedMapData)
 	{
 		
-		LoginPage loginpage = new LoginPage(driver);
+		LoginPage loginpage = new LoginPage(getDriver());
 		loginpage.setUserName(userName);
 		loginpage.setPassword(password);
 		loginpage.clickSubitButton();
-		assertEquals(driver.getTitle(), "Enquiries");
+		assertEquals(getDriver().getTitle(), "Enquiries");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToReceiptsNavigationTab();
 		commonPageObjects.clickViewReceiptsLink();
 				
-		assertEquals(driver.getTitle(),"List of Receipts");
+		assertEquals(getDriver().getTitle(),"List of Receipts");
 		
 		LocalDate date = LocalDate.parse(LocalDate.now().toString());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -184,7 +184,7 @@ public class TC_ViewReceipts extends BaseClass {
 		LocalDate beforeFiveDays = date.minusDays(7); 
 		String pastDate = formatter.format(beforeFiveDays);		
 		
-		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
+		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(getDriver());
 		viewReceiptsPage.setReceiptFromDate(pastDate);
 		viewReceiptsPage.setReceiptToDate(currentDate);
 		viewReceiptsPage.clickReceiptSearchBtn();
@@ -202,13 +202,13 @@ public class TC_ViewReceipts extends BaseClass {
 	@Test(priority=5,enabled=true,dependsOnMethods = "validateUpdatedReceiptInTableView" , dataProvider="EditReceiptDataFromGetData")
 	public void validateUpdatedReceiptInvoiceFromViewBtn(Map<String,String>updatedMapData)
 	{
-		LoginPage loginpage = new LoginPage(driver);
+		LoginPage loginpage = new LoginPage(getDriver());
 		loginpage.setUserName(userName);
 		loginpage.setPassword(password);
 		loginpage.clickSubitButton();
-		assertEquals(driver.getTitle(), "Enquiries");
+		assertEquals(getDriver().getTitle(), "Enquiries");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToReceiptsNavigationTab();
 		commonPageObjects.clickViewReceiptsLink();
 				
@@ -219,13 +219,13 @@ public class TC_ViewReceipts extends BaseClass {
 		LocalDate beforeFiveDays = date.minusDays(7); 
 		String pastDate = formatter.format(beforeFiveDays);		
 		
-		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(driver);
+		ViewReceiptsPage viewReceiptsPage = new ViewReceiptsPage(getDriver());
 		viewReceiptsPage.setReceiptFromDate(pastDate);
 		viewReceiptsPage.setReceiptToDate(currentDate);
 		viewReceiptsPage.clickReceiptSearchBtn();
 		viewReceiptsPage.clickViewiewReceiptBtn(receiptNum);
 		
-		String pageSource = driver.getPageSource();
+		String pageSource = getDriver().getPageSource();
 		
 		String[] str1 = updatedMapData.get("Resident").split("\\(");
 		String residentName = str1[0].trim();

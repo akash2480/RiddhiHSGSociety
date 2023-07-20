@@ -29,18 +29,18 @@ public class TC_AddUser_001 extends BaseClass{
 	public void addNewUser(Map<String, String> mapData) throws InterruptedException, IOException
 	{	
 		SoftAssert softAssert = new SoftAssert();
-		LoginPage loginpage = new LoginPage(driver);
+		LoginPage loginpage = new LoginPage(getDriver());
 		loginpage.setUserName(userName);
 		loginpage.setPassword(password);
 		loginpage.clickSubitButton();
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToUsersNavigationTab();
 		commonPageObjects.clickAddUsersLink();
 		
-		AddUserPage addUser = new AddUserPage(driver);						
+		AddUserPage addUser = new AddUserPage(getDriver());						
 				
-		assertEquals(driver.getTitle(),"Add User - Riddhi Co-op Housing Society");
+		assertEquals(getDriver().getTitle(),"Add User - Riddhi Co-op Housing Society");
 						
 		addUser.selectRole(mapData.get("Role"));
 		addUser.selectWingNumber(mapData.get("Wing_House"));

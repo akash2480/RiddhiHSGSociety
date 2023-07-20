@@ -14,10 +14,10 @@ import com.riddhiHousingSociety.pageObjects.LoginPage;
 
 public class TC_AddContent extends BaseClass{
 			
-	@Test(dataProvider = "AddContentDataFromGetData")
+	@Test(dataProvider = "AddContentDataFromGetData", invocationCount = 1)
 	public void addContent(Map<String, String> mapData) throws InterruptedException
 	{		
-			LoginPage lpg = new LoginPage(driver);
+			LoginPage lpg = new LoginPage(getDriver());
 			lpg.setUserName(userName);
 			log.info("Entering Username");
 			lpg.setPassword(password);
@@ -25,12 +25,12 @@ public class TC_AddContent extends BaseClass{
 			lpg.clickSubitButton();
 			log.info("Clicking Submit Button");
 			
-			CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+			CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 			commonPageObjects.navigateToContentsNavigationTab();
 			commonPageObjects.clickAddNewContentLink();
 			
-			AddContentPage addContentPage = new AddContentPage(driver);
-			assertEquals(driver.getTitle(),"Add New Content - Riddhi Co-op Housing Society");
+			AddContentPage addContentPage = new AddContentPage(getDriver());
+			assertEquals(getDriver().getTitle(),"Add New Content - Riddhi Co-op Housing Society");
 			
 			addContentPage.selectSectionName(mapData.get("Section_Name"));
 			addContentPage.setContentTitle(mapData.get("Title"));

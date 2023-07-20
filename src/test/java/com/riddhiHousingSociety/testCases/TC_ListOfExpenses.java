@@ -39,16 +39,16 @@ public class TC_ListOfExpenses extends BaseClass {
 	@Test(dataProvider = "AddExpenseDataFromGetData")
 	public void validateExpenseData(Map<String, String> mapData) throws ParseException 
 	{		
-		LoginPage loginpage = new LoginPage(driver);
+		LoginPage loginpage = new LoginPage(getDriver());
 		loginpage.setUserName(userName);
 		loginpage.setPassword(password);
 		loginpage.clickSubitButton();
-		assertEquals(driver.getTitle(), "Enquiries");
+		assertEquals(getDriver().getTitle(), "Enquiries");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToExpensesNavigationTab();
 		commonPageObjects.clickListExpenseLink();
-		assertEquals(driver.getTitle(),"List Expenses");
+		assertEquals(getDriver().getTitle(),"List Expenses");
 						
 		LocalDate date = LocalDate.parse(LocalDate.now().toString());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -57,7 +57,7 @@ public class TC_ListOfExpenses extends BaseClass {
 		LocalDate beforeFiveDays = date.minusDays(7); 
 		String pastDate = formatter.format(beforeFiveDays);		
 		
-		ListOfExpenses listOfExpenses = new ListOfExpenses(driver);
+		ListOfExpenses listOfExpenses = new ListOfExpenses(getDriver());
 		listOfExpenses.setFromDate(pastDate);
 		listOfExpenses.setToDate(currentDate);
 		
@@ -81,18 +81,18 @@ public class TC_ListOfExpenses extends BaseClass {
 	@Test(dataProvider = "AddExpenseDataFromGetData", dependsOnMethods = "validateExpenseData")
 	public void deleteExpenseData(Map<String, String> mapData) throws ParseException, InterruptedException 
 	{
-		LoginPage loginpage = new LoginPage(driver);
+		LoginPage loginpage = new LoginPage(getDriver());
 		loginpage.setUserName(userName);
 		loginpage.setPassword(password);
 		loginpage.clickSubitButton();
-		assertEquals(driver.getTitle(), "Enquiries");
+		assertEquals(getDriver().getTitle(), "Enquiries");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToExpensesNavigationTab();
 		commonPageObjects.clickListExpenseLink();
-		assertEquals(driver.getTitle(),"List Expenses");
+		assertEquals(getDriver().getTitle(),"List Expenses");
 		
-		ListOfExpenses listOfExpenses = new ListOfExpenses(driver);
+		ListOfExpenses listOfExpenses = new ListOfExpenses(getDriver());
 			
 		int totalExpenseAmount = listOfExpenses.getTotalExpenses();
 		
@@ -114,14 +114,14 @@ public class TC_ListOfExpenses extends BaseClass {
 				mapData.get("Expense_Type"), mapData.get("Expense_Mode"), sdf2.format(parsedDate),
 				mapData.get("Expense_Note"));
 
-		Alert alert = driver.switchTo().alert();
+		Alert alert = getDriver().switchTo().alert();
 		String alertMessage = alert.getText();
 		assertEquals(alertMessage, "Are you sure you want to delete this?");
 		
 		alert.dismiss();
 
 		// Explicit Wait
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
 		wait.until(ExpectedConditions.elementToBeClickable(expenseRowData));
 		
 		assertEquals(expenseRowData.isDisplayed(), true, "Delete cancel operation Failed. Expense data is not visible in table");
@@ -148,7 +148,7 @@ public class TC_ListOfExpenses extends BaseClass {
 			
 		} 
 					
-		assertEquals(driver.getPageSource().contains(mapData.get("Expense_Done_By")), false, "Delete operation Failed. Expense data is still visible in table");
+		assertEquals(getDriver().getPageSource().contains(mapData.get("Expense_Done_By")), false, "Delete operation Failed. Expense data is still visible in table");
 				
 		int totalExpenseAmountUpdated = listOfExpenses.getTotalExpenses();
 		assertEquals(totalExpenseAmountUpdated, (totalExpenseAmount - totalExpenseAmountUser));

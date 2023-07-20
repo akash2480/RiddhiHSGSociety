@@ -19,7 +19,7 @@ public class TC_SectionPage_003 extends BaseClass {
 	@Test(enabled=true)	
 	public void validateAddSection() throws IOException
 	{
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
@@ -27,7 +27,7 @@ public class TC_SectionPage_003 extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToSectionsNavigationTab();
 		log.info("Navigate To Sections Page");
 				
@@ -35,7 +35,7 @@ public class TC_SectionPage_003 extends BaseClass {
 		Properties properties = new Properties();
 		properties.load(reader);
 		
-		SectionsPage sectionPage = new SectionsPage(driver);
+		SectionsPage sectionPage = new SectionsPage(getDriver());
 		String sectionName = properties.getProperty("sectionName")+randomAlphaNumeric(7);
 		sectionPage.setSectionName(sectionName);
 		log.info("Set a unique Section Name in Add New Section");
@@ -57,7 +57,7 @@ public class TC_SectionPage_003 extends BaseClass {
 	@Test(enabled = true)
 	public void validateAddSectionWithDuplicateSectionName()
 	{
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
@@ -65,10 +65,10 @@ public class TC_SectionPage_003 extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");		
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToSectionsNavigationTab();
 		
-		SectionsPage sectionPage = new SectionsPage(driver);
+		SectionsPage sectionPage = new SectionsPage(getDriver());
 				
 		//Input Already existing data in the application
 		sectionPage.setSectionName("Role");
@@ -80,7 +80,7 @@ public class TC_SectionPage_003 extends BaseClass {
 	@Test(enabled = true)
 	public void validateShowEntriesCount()
 	{	
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
@@ -88,27 +88,27 @@ public class TC_SectionPage_003 extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToSectionsNavigationTab();
 		
-		selectShowEntries(10);
-		assertEquals(getRowCountTable()<=10, true, "Show Entries is not working as expected");
+		commonPageObjects.selectShowEntries(10);
+		assertEquals(commonPageObjects.getRowCountTable()<=10, true, "Show Entries is not working as expected");
 				
-		selectShowEntries(25);
-		assertEquals(getRowCountTable()<=25, true, "Show Entries is not working as expected");
+		commonPageObjects.selectShowEntries(25);
+		assertEquals(commonPageObjects.getRowCountTable()<=25, true, "Show Entries is not working as expected");
 		
-		selectShowEntries(50);
-		assertEquals(getRowCountTable()<=50, true, "Show Entries is not working as expected");
+		commonPageObjects.selectShowEntries(50);
+		assertEquals(commonPageObjects.getRowCountTable()<=50, true, "Show Entries is not working as expected");
 		
-		selectShowEntries(100);
-		assertEquals(getRowCountTable()<=100, true, "Show Entries is not working as expected");
+		commonPageObjects.selectShowEntries(100);
+		assertEquals(commonPageObjects.getRowCountTable()<=100, true, "Show Entries is not working as expected");
 		
 	}
 	
 	@Test(enabled = true)
 	public void paginationFunc()
 	{	
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
@@ -116,7 +116,7 @@ public class TC_SectionPage_003 extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToSectionsNavigationTab();
 				
 		////////////////////////////
