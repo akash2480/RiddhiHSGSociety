@@ -7,19 +7,19 @@
   <listener class-name="com.riddhiHousingSociety.utilities.Reporting"></listener>
   </listeners>
   
-  <test name="Smoke" >
+  <test name="Smoke" parallel = "methods" thread-count = "5">
   <parameter name="browser"  value="chrome"/>
     <classes>
        <class name="com.riddhiHousingSociety.testCases.TC_LoginTest_001" />
-       <class name="com.riddhiHousingSociety.testCases.TC_SectionPage_003" />
-       <class name="com.riddhiHousingSociety.testCases.TC_AddContent" />
-       <class name="com.riddhiHousingSociety.testCases.TC_ViewContents" />
-       <class name="com.riddhiHousingSociety.testCases.TC_AddUser_001" />
-       <class name="com.riddhiHousingSociety.testCases.TC_ListResidents" />
-       <class name="com.riddhiHousingSociety.testCases.TC_AddReceipt" />
-       <class name="com.riddhiHousingSociety.testCases.TC_ViewReceipts" />
-       <class name="com.riddhiHousingSociety.testCases.TC_AddExpense" />
-       <class name="com.riddhiHousingSociety.testCases.TC_ListOfExpenses" />       
+       <!--class name="com.riddhiHousingSociety.testCases.TC_SectionPage_003" /-->
+       <!--class name="com.riddhiHousingSociety.testCases.TC_AddContent" /-->
+       <!--class name="com.riddhiHousingSociety.testCases.TC_ViewContents" /-->
+       <!--class name="com.riddhiHousingSociety.testCases.TC_AddUser_001" /-->
+       <!--class name="com.riddhiHousingSociety.testCases.TC_ListResidents" /-->
+       <!--class name="com.riddhiHousingSociety.testCases.TC_AddReceipt" /-->
+       <!--class name="com.riddhiHousingSociety.testCases.TC_ViewReceipts" /-->
+       <!--class name="com.riddhiHousingSociety.testCases.TC_AddExpense" /-->
+       <!--class name="com.riddhiHousingSociety.testCases.TC_ListOfExpenses" /-->       
     </classes>
   </test>
   

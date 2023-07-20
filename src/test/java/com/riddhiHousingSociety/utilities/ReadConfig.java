@@ -26,7 +26,12 @@ public class ReadConfig {
 		String browser = prop.getProperty("browser");
 		return browser;
 	}
-
+	
+	public String getPropertyValue(String url) {
+		String browser = prop.getProperty(url);
+		return browser;
+	}
+	
 	public String getApplicationUrl() {
 		String url = prop.getProperty("url");
 		return url;

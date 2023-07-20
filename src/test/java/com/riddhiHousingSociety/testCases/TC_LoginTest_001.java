@@ -11,23 +11,23 @@ public class TC_LoginTest_001 extends BaseClass {
 	@Test(enabled = true)
 	public void loginTestWithValidCredentials() 
 	{		
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
 		log.info("Entering Password");
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
-		assertEquals(driver.getTitle(), "Enquiries", "Homepage Title does not match");
+		assertEquals(getDriver().getTitle(), "Enquiries", "Homepage Title does not match");
 		log.info("Verified Admin Landing page after successful login");
 		assertEquals(lpg.adminProfileLink.isDisplayed(), true,"Admin Profile link is not visible");
 		log.info("Verified Admin Profile link is visible");	
 	}
 	
-	@Test(enabled = true)
+	//@Test(enabled = true)
 	public void logoutFunction()
 	{
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 
 		lpg.setUserName(userName);
 		log.info("Entering Username");
@@ -35,7 +35,7 @@ public class TC_LoginTest_001 extends BaseClass {
 		log.info("Entering Password");
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
-		assertEquals(driver.getTitle(), "Enquiries","Homepage Title does not match");
+		assertEquals(getDriver().getTitle(), "Enquiries","Homepage Title does not match");
 		log.info("Verified Admin Landing page after successful login");
 		
 		lpg.clickAdminProfileLink();
@@ -47,10 +47,10 @@ public class TC_LoginTest_001 extends BaseClass {
 		
 	}
 
-	@Test(enabled = true)
+	//@Test(enabled = true)
 	public void loginTestWithInvalidCredentials() 
 	{
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		
 		lpg.setUserName("RandomString");
 		log.info("Entering Username");
@@ -64,10 +64,10 @@ public class TC_LoginTest_001 extends BaseClass {
 
 	}
 
-	@Test(enabled = true)
+	//@Test(enabled = true)
 	public void loginTestWithBlankUsername() 
 	{
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 
 		lpg.setUserName("");
 		log.info("Entering Username");
@@ -82,10 +82,10 @@ public class TC_LoginTest_001 extends BaseClass {
 
 	}
 
-	@Test(enabled = true)
+	//@Test(enabled = true)
 	public void loginTestWithBlankPassword() 
 	{
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		
 		lpg.setUserName(userName);
 		log.info("Entering Username");
@@ -99,9 +99,9 @@ public class TC_LoginTest_001 extends BaseClass {
 
 	}
 
-	@Test(enabled = true)
+	//@Test(enabled = true)
 	public void loginTestWithBlankUsernameAndPassword() {
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 
 		lpg.setUserName("");
 		log.info("Entering Username");

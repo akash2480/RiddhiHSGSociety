@@ -22,17 +22,17 @@ public class TC_AddExpense extends BaseClass {
 	public void addExpenseDetails(Map<String, String> mapData) 
 	{
 		SoftAssert softAssert = new SoftAssert();
-		LoginPage loginpage = new LoginPage(driver);
+		LoginPage loginpage = new LoginPage(getDriver());
 		loginpage.setUserName(userName);
 		loginpage.setPassword(password);
 		loginpage.clickSubitButton();
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToExpensesNavigationTab();
 		commonPageObjects.clickAddExpenseLink();
-		assertEquals(driver.getTitle(), "Add Expense - Riddhi Co-op Housing Society");
+		assertEquals(getDriver().getTitle(), "Add Expense - Riddhi Co-op Housing Society");
 		
-		AddExpensePage addExpense = new AddExpensePage(driver);
+		AddExpensePage addExpense = new AddExpensePage(getDriver());
 		addExpense.setExpenseDoneBy(mapData.get("Expense_Done_By"));
 		addExpense.setExpenseAmount(mapData.get("Expense_Amount"));
 		addExpense.selectExpenseType(mapData.get("Expense_Type"));

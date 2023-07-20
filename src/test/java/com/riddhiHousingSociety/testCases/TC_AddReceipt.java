@@ -18,17 +18,17 @@ public class TC_AddReceipt extends BaseClass{
 	@Test(dataProvider = "AddReceiptDataFromGetData")
 	public void addReceipt(Map<String, String> mapData)
 	{		
-			LoginPage lpg = new LoginPage(driver);
+			LoginPage lpg = new LoginPage(getDriver());
 			lpg.setUserName(userName);
 			lpg.setPassword(password);
 			lpg.clickSubitButton();
 			
-			CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+			CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 			commonPageObjects.navigateToReceiptsNavigationTab();
 			commonPageObjects.clickAddReceiptLink();
 			
-			AddReceiptsPage addReceiptPage = new AddReceiptsPage(driver);
-			assertEquals(driver.getTitle(),"Add Receipt - Riddhi Co-op Housing Society");
+			AddReceiptsPage addReceiptPage = new AddReceiptsPage(getDriver());
+			assertEquals(getDriver().getTitle(),"Add Receipt - Riddhi Co-op Housing Society");
 							
 			addReceiptPage.selectReceiptResident(mapData.get("Resident"));
 			addReceiptPage.setReceiptPaymentFor(mapData.get("Payment_For"));
