@@ -38,7 +38,6 @@ public class BaseClass {
 	ReadConfig readConfig = new ReadConfig();	
 		
 	public String url = readConfig.getApplicationUrl();
-	//String browser2 = readConfig.getPropertyValue("browser");
 	public String userName = readConfig.getUserName();
 	public String password = readConfig.getPassword();
 	public static Logger log;
@@ -177,20 +176,5 @@ public class BaseClass {
 		String expectedDate = sdf2.format(parsedDate);
 		return expectedDate;
 	}
-	
-	/*
-	public static void selectShowEntries(int entriesCount)
-	{	
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
-		Select selectEntriesCount = new Select(commonPageObjects.getSelectShowEntriesLocator());
-		selectEntriesCount.selectByVisibleText(Integer.toString(entriesCount));
-	}
-	
-	/*
-	public static int getRowCountTable()
-	{
-		List<WebElement> noOfRows = getDriver().findElements(By.xpath("//table/tbody//tr"));
-		return noOfRows.size();
-	}*/	
-	
+		
 }
