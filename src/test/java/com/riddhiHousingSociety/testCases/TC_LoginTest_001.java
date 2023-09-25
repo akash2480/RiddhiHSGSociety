@@ -2,15 +2,17 @@ package com.riddhiHousingSociety.testCases;
 
 import static org.testng.Assert.*;
 
+
+
 import org.testng.annotations.Test;
 
 import com.riddhiHousingSociety.pageObjects.LoginPage;
 
 public class TC_LoginTest_001 extends BaseClass {
 
-	@Test(enabled = true)
+	@Test(enabled = true, description = "Login Scenario with Valid credentials")
 	public void loginTestWithValidCredentials() 
-	{		
+	{			
 		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
@@ -24,9 +26,9 @@ public class TC_LoginTest_001 extends BaseClass {
 		log.info("Verified Admin Profile link is visible");	
 	}
 	
-	//@Test(enabled = true)
+	@Test(enabled = true, description = "Logout Scenario")
 	public void logoutFunction()
-	{
+	{		
 		LoginPage lpg = new LoginPage(getDriver());
 
 		lpg.setUserName(userName);
@@ -47,9 +49,9 @@ public class TC_LoginTest_001 extends BaseClass {
 		
 	}
 
-	//@Test(enabled = true)
+	@Test(enabled = true, description = "Login Scenario with Invalid credentials")
 	public void loginTestWithInvalidCredentials() 
-	{
+	{		
 		LoginPage lpg = new LoginPage(getDriver());
 		
 		lpg.setUserName("RandomString");
@@ -64,9 +66,9 @@ public class TC_LoginTest_001 extends BaseClass {
 
 	}
 
-	//@Test(enabled = true)
+	@Test(enabled = true, description = "Login Scenario with Blank username")
 	public void loginTestWithBlankUsername() 
-	{
+	{		
 		LoginPage lpg = new LoginPage(getDriver());
 
 		lpg.setUserName("");
@@ -82,9 +84,9 @@ public class TC_LoginTest_001 extends BaseClass {
 
 	}
 
-	//@Test(enabled = true)
+	@Test(enabled = true, description = "Login Scenario with blank password")
 	public void loginTestWithBlankPassword() 
-	{
+	{		
 		LoginPage lpg = new LoginPage(getDriver());
 		
 		lpg.setUserName(userName);
@@ -99,8 +101,9 @@ public class TC_LoginTest_001 extends BaseClass {
 
 	}
 
-	//@Test(enabled = true)
-	public void loginTestWithBlankUsernameAndPassword() {
+	@Test(enabled = true, description = "Login Scenario with blank username and password")
+	public void loginTestWithBlankUsernameAndPassword() 
+	{		
 		LoginPage lpg = new LoginPage(getDriver());
 
 		lpg.setUserName("");
