@@ -33,23 +33,23 @@ import com.riddhiHousingSociety.utilities.XLUtils;
 
 public class BaseClass {
 	
-	protected ThreadLocal<WebDriver> driver = new ThreadLocal<>();
-		
+	protected static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+	
 	ReadConfig readConfig = new ReadConfig();	
 		
 	public String url = readConfig.getApplicationUrl();
 	public String userName = readConfig.getUserName();
 	public String password = readConfig.getPassword();
-	public static Logger log;
+	public static Logger log = LogManager.getLogger(BaseClass.class);
 	
-	public void setDriver(WebDriver driver)
+	public void setDriver(WebDriver webdriver)
 	{
-		this.driver.set(driver);
+		driver.set(webdriver);
 	}
 	
-	public WebDriver getDriver()
+	public static WebDriver getDriver()
 	{
-		return this.driver.get();
+		return driver.get();
 	}
 		
 	
@@ -57,7 +57,6 @@ public class BaseClass {
 	@BeforeMethod
 	public void setup(@Optional("chrome") String browser)
 	{	
-		log = LogManager.getLogger(BaseClass.class);
 		setupBrowserDriver(browser);
 		getDriver().manage().window().maximize();
 		log.info("Maximizing window");	
@@ -95,20 +94,21 @@ public class BaseClass {
 	}	
 			
 	@AfterMethod
-	public void teardown() throws InterruptedException 
+	public void teardown()
 	{
 		
-		getDriver().quit();
+		getDriver().close();
+		driver.remove();
 		log.info("Closing the Browser");
 		
 	}
 		
-	public void captureScreenshot(String fileName)
+	public synchronized void captureScreenshot(String fileName)
 	{	
 		DateTimeFormatter formatedDateTime = DateTimeFormatter.ofPattern("ddMMYY_HHmmss");
 		String timeStampString = LocalDateTime.now().format(formatedDateTime);
 		
-		TakesScreenshot takeScreenshot = (TakesScreenshot)driver;
+		TakesScreenshot takeScreenshot = (TakesScreenshot)getDriver();
 		File sourceFile = takeScreenshot.getScreenshotAs(OutputType.FILE);
 		File targetFile = new File("./Screenshots/"+fileName+timeStampString+".png");
 		
