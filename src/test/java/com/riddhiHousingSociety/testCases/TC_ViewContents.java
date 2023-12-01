@@ -47,7 +47,7 @@ public class TC_ViewContents extends BaseClass {
 	@Test(priority=1, enabled=true, dataProvider = "AddContentDataFromGetData")
 	public void validateViewContentInTableView(Map<String,String> mapData)
 	{
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
@@ -55,12 +55,12 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToContentsNavigationTab();
 		commonPageObjects.clickViewContentsLink();
 				
-		ViewContentsPage viewContentsPage = new ViewContentsPage(driver);
-		assertEquals(driver.getTitle(), "Content - Riddhi Co-op Housing Society");
+		ViewContentsPage viewContentsPage = new ViewContentsPage(getDriver());
+		assertEquals(getDriver().getTitle(), "Content - Riddhi Co-op Housing Society");
 		
 		contentTitle = mapData.get("Title");
 		viewContentsPage.searchContentTitle(contentTitle);
@@ -76,7 +76,7 @@ public class TC_ViewContents extends BaseClass {
 	@Test(priority=2,enabled=true, dependsOnMethods="validateViewContentInTableView", dataProvider="AddContentDataFromGetData")
 	public void viewContentFromActionsViewLink(Map<String,String> mapData) throws ParseException
 	{
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
@@ -84,17 +84,17 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToContentsNavigationTab();
 		commonPageObjects.clickViewContentsLink();
 		
-		ViewContentsPage viewContentsPage = new ViewContentsPage(driver);
+		ViewContentsPage viewContentsPage = new ViewContentsPage(getDriver());
 		viewContentsPage.searchContentTitle(contentTitle);
 		
 		viewContentsPage.clickActionsBtnViewContent(contentId);
 		viewContentsPage.clickActionViewBtnViewContent(contentId);
 		
-		assertEquals(driver.getTitle(), "View Content - Riddhi Co-op Housing Society Admin");
+		assertEquals(getDriver().getTitle(), "View Content - Riddhi Co-op Housing Society Admin");
 		
 		assertEquals(viewContentsPage.getContentTitleName(), contentTitle);
 		assertEquals(viewContentsPage.getContentPrice(), mapData.get("Price"));
@@ -115,7 +115,7 @@ public class TC_ViewContents extends BaseClass {
 	@Test(priority=3, enabled=true, dependsOnMethods="validateViewContentInTableView")
 	public void addPhotosContentFromActionsEditLink() 
 	{
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
@@ -123,18 +123,18 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 						
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToContentsNavigationTab();
 		commonPageObjects.clickViewContentsLink();
 		
-		ViewContentsPage viewContentsPage = new ViewContentsPage(driver);
+		ViewContentsPage viewContentsPage = new ViewContentsPage(getDriver());
 			
 		viewContentsPage.searchContentTitle(contentTitle);
 		
 		viewContentsPage.clickActionsBtnViewContent(contentId);
 		viewContentsPage.clickActionAddPhotosBtnViewContent(contentId);
 				
-		assertEquals(driver.getTitle(),"Add Photo - "+contentTitle);
+		assertEquals(getDriver().getTitle(),"Add Photo - "+contentTitle);
 		
 		viewContentsPage.setAddContentImage("C:\\eclipse-workspace\\riddhiHousingSociety\\Google.png");
 		viewContentsPage.clickaddContentImageUploadBtn();
@@ -161,14 +161,14 @@ public class TC_ViewContents extends BaseClass {
 		 */
 				
 		assertEquals(viewContentsPage.getDeletePhotoSuccessMsg(), "Success!Photo Deleted Successfully");
-		assertEquals(driver.getPageSource().contains("Google.png"),false);
+		assertEquals(getDriver().getPageSource().contains("Google.png"),false);
 				
 	}
 	
 	@Test(priority=4, enabled=true, dependsOnMethods="validateViewContentInTableView")
 	public void addVideosContentFromActionsEditLink() throws IOException
 	{
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
@@ -176,18 +176,18 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 						
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToContentsNavigationTab();
 		commonPageObjects.clickViewContentsLink();
 		
-		ViewContentsPage viewContentsPage = new ViewContentsPage(driver);
+		ViewContentsPage viewContentsPage = new ViewContentsPage(getDriver());
 			
 		viewContentsPage.searchContentTitle(contentTitle);
 		
 		viewContentsPage.clickActionsBtnViewContent(contentId);
 		viewContentsPage.clickActionsAddVideosBtnViewContent(contentId);
 				
-		assertEquals(driver.getTitle(),"Add Video - "+contentTitle);
+		assertEquals(getDriver().getTitle(),"Add Video - "+contentTitle);
 		
 		FileReader reader = new FileReader("./src/test/java/com/riddhiHousingSociety/testData/SingleUsageData.properties");
 		Properties properties = new Properties();
@@ -203,7 +203,7 @@ public class TC_ViewContents extends BaseClass {
 		assertEquals(viewContentsPage.getAddVideoLinkIFrame().isEnabled(), true);
 		
 		//video is in iframe
-		assertEquals(driver.getPageSource().contains("iframe"),true );
+		assertEquals(getDriver().getPageSource().contains("iframe"),true );
 		
 		//assertEquals(viewContentsPage.getAddVideoLinkSubString().contains(expectedYTLinkSubstring),true);		
 		
@@ -211,12 +211,12 @@ public class TC_ViewContents extends BaseClass {
 		
 		// Alert is not caught by automation
 				  
-		Alert alert = driver.switchTo().alert();
+		Alert alert = getDriver().switchTo().alert();
 		String alertMessage = alert.getText();
 		assertEquals(alertMessage, "Are you sure you want to delete?");
 		alert.dismiss();
 		
-		assertEquals(driver.getPageSource().contains("iframe"),true );
+		assertEquals(getDriver().getPageSource().contains("iframe"),true );
 		assertEquals(viewContentsPage.getAddVideoLinkIFrame().isEnabled(), true);
 
 		viewContentsPage.deleteAddedVideoLink(expectedYTLinkSubstring);
@@ -224,14 +224,14 @@ public class TC_ViewContents extends BaseClass {
 				
 		assertEquals(viewContentsPage.getDeleteVideoSuccessMsg(), "Success!Video Deleted Successfully");
 	
-		assertEquals(driver.getPageSource().contains("iframe"),false );
+		assertEquals(getDriver().getPageSource().contains("iframe"),false );
 				
 	}
 	
 	@Test(priority=5,enabled=true, dependsOnMethods="validateViewContentInTableView", dataProvider="EditContentDataFromGetData")
 	public void editContentFromActionsEditLink(Map<String,String> mapUpdatedData)
 	{
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
@@ -239,20 +239,20 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToContentsNavigationTab();
 		commonPageObjects.clickViewContentsLink();		
 		
-		ViewContentsPage viewContentsPage = new ViewContentsPage(driver);
+		ViewContentsPage viewContentsPage = new ViewContentsPage(getDriver());
 		viewContentsPage.searchContentTitle(contentTitle);
 		
 		viewContentsPage.clickActionsBtnViewContent(contentId);
 		viewContentsPage.clickActionEditBtnViewContent(contentId);
 				
-		assertEquals(driver.getTitle(),"Edit Content - Riddhi Co-op Housing Society");
+		assertEquals(getDriver().getTitle(),"Edit Content - Riddhi Co-op Housing Society");
 		
 		//Edit content field locators are same as Add content
-		AddContentPage addContentPage = new AddContentPage(driver);
+		AddContentPage addContentPage = new AddContentPage(getDriver());
 		addContentPage.selectSectionName(mapUpdatedData.get("Section_Name"));
 		addContentPage.setContentTitle(mapUpdatedData.get("Title"));
 		addContentPage.setContentPrice(mapUpdatedData.get("Price"));
@@ -273,7 +273,7 @@ public class TC_ViewContents extends BaseClass {
 	@Test(priority=6,enabled=true, dependsOnMethods="editContentFromActionsEditLink", dataProvider="EditContentDataFromGetData")
 	public void validateContentFromActionsViewLink(Map<String,String> mapUpdatedData) throws ParseException
 	{
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
@@ -281,17 +281,17 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToContentsNavigationTab();
 		commonPageObjects.clickViewContentsLink();	
 		
-		ViewContentsPage viewContentsPage = new ViewContentsPage(driver);
+		ViewContentsPage viewContentsPage = new ViewContentsPage(getDriver());
 			
 		viewContentsPage.searchContentTitle(contentId);
 		viewContentsPage.clickActionsBtnViewContent(contentId);
 		viewContentsPage.clickActionViewBtnViewContent(contentId);
 		
-		assertEquals(driver.getTitle(), "View Content - Riddhi Co-op Housing Society Admin");
+		assertEquals(getDriver().getTitle(), "View Content - Riddhi Co-op Housing Society Admin");
 		
 		assertEquals(viewContentsPage.getContentTitleName(), mapUpdatedData.get("Title"));
 		assertEquals(viewContentsPage.getContentPrice(), mapUpdatedData.get("Price"));
@@ -311,7 +311,7 @@ public class TC_ViewContents extends BaseClass {
 	
 	public void validateShowEntriesCount()
 	{	
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
@@ -319,20 +319,20 @@ public class TC_ViewContents extends BaseClass {
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToSectionsNavigationTab();
 		
-		selectShowEntries(10);
-		assertEquals(getRowCountTable()<=10, true, "Show Entries is not working as expected");
+		commonPageObjects.selectShowEntries(10);
+		assertEquals(commonPageObjects.getRowCountTable()<=10, true, "Show Entries is not working as expected");
 				
-		selectShowEntries(25);
-		assertEquals(getRowCountTable()<=25, true, "Show Entries is not working as expected");
+		commonPageObjects.selectShowEntries(25);
+		assertEquals(commonPageObjects.getRowCountTable()<=25, true, "Show Entries is not working as expected");
 		
-		selectShowEntries(50);
-		assertEquals(getRowCountTable()<=50, true, "Show Entries is not working as expected");
+		commonPageObjects.selectShowEntries(50);
+		assertEquals(commonPageObjects.getRowCountTable()<=50, true, "Show Entries is not working as expected");
 		
-		selectShowEntries(100);
-		assertEquals(getRowCountTable()<=100, true, "Show Entries is not working as expected");
+		commonPageObjects.selectShowEntries(100);
+		assertEquals(commonPageObjects.getRowCountTable()<=100, true, "Show Entries is not working as expected");
 		
 	}
 	

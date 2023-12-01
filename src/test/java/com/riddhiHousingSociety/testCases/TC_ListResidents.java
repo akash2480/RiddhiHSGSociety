@@ -41,18 +41,18 @@ public class TC_ListResidents extends BaseClass{
 	@Test(priority=1,dataProvider = "AddedUserData", enabled=true)
 	public void validateUserOnListOfResidentsPageTable(Map<String,String> userMapData)
 	{
-		LoginPage loginPage = new LoginPage(driver);
+		LoginPage loginPage = new LoginPage(getDriver());
 		loginPage.setUserName(userName);
 		loginPage.setPassword(password);
 		loginPage.clickSubitButton();
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToUsersNavigationTab();
 		commonPageObjects.clickListResidentsLink();
 		
-		assertEquals(driver.getTitle(),"List of Residents", "Page Title did not match");
+		assertEquals(getDriver().getTitle(),"List of Residents", "Page Title did not match");
 		
-		ListOfResidentsPage listOfResidents = new ListOfResidentsPage(driver);
+		ListOfResidentsPage listOfResidents = new ListOfResidentsPage(getDriver());
 		userOriginalFullName = userMapData.get("Full_Name");
 		listOfResidents.searchUserInputField(userMapData.get("Full_Name"));
 		
@@ -63,20 +63,20 @@ public class TC_ListResidents extends BaseClass{
 	@Test(priority=2, dependsOnMethods="validateUserOnListOfResidentsPageTable", dataProvider="AddedUserData",enabled=true)
 	public void validateUserDetailsFromUserLink(Map<String,String> userMapData)
 	{
-		LoginPage loginPage = new LoginPage(driver);
+		LoginPage loginPage = new LoginPage(getDriver());
 		loginPage.setUserName(userName);
 		loginPage.setPassword(password);
 		loginPage.clickSubitButton();
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToUsersNavigationTab();
 		commonPageObjects.clickListResidentsLink();
 		
-		ListOfResidentsPage listOfResidents = new ListOfResidentsPage(driver);
+		ListOfResidentsPage listOfResidents = new ListOfResidentsPage(getDriver());
 						
 		listOfResidents.searchUserInputField(userMapData.get("Full_Name"));
 		listOfResidents.goToUserDetailFromUserLink(userMapData.get("Full_Name"));
-		assertEquals(driver.getTitle(),"User Profile - Riddhi Co-op Housing Society Admin");
+		assertEquals(getDriver().getTitle(),"User Profile - Riddhi Co-op Housing Society Admin");
 		
 		assertEquals(listOfResidents.getUserFullNameHeaderOnUserProfilePage(userMapData.get("Full_Name"), userMapData.get("Role")).isDisplayed(), true, "UserProfile Header did not match");
 		
@@ -97,21 +97,21 @@ public class TC_ListResidents extends BaseClass{
 	@Test(priority=3, dependsOnMethods="validateUserOnListOfResidentsPageTable", dataProvider="AddedUserData",enabled=true)
 	public void validateUserDetailsFromViewBtn(Map<String,String> userMapData)
 	{
-		LoginPage loginPage = new LoginPage(driver);
+		LoginPage loginPage = new LoginPage(getDriver());
 		loginPage.setUserName(userName);
 		loginPage.setPassword(password);
 		loginPage.clickSubitButton();
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToUsersNavigationTab();
 		commonPageObjects.clickListResidentsLink();
 		
-		ListOfResidentsPage listOfResidents = new ListOfResidentsPage(driver);
+		ListOfResidentsPage listOfResidents = new ListOfResidentsPage(getDriver());
 					
 		listOfResidents.searchUserInputField(userMapData.get("Full_Name"));
 		listOfResidents.goToUserDetailPageFromViewBtn(userMapData.get("Full_Name"));
 		
-		assertEquals(driver.getTitle(),"User Profile - Riddhi Co-op Housing Society Admin");
+		assertEquals(getDriver().getTitle(),"User Profile - Riddhi Co-op Housing Society Admin");
 		
 		assertEquals(listOfResidents.getUserFullNameHeaderOnUserProfilePage(userMapData.get("Full_Name"), userMapData.get("Role")).isDisplayed(), true, "UserProfile Header did not match");
 		
@@ -133,25 +133,25 @@ public class TC_ListResidents extends BaseClass{
 	@Test(priority=4, dataProvider="UpdateUserProfileTestData", dependsOnMethods="validateUserOnListOfResidentsPageTable", enabled = true)
 	public void updateUserProfile(Map<String,String> updatedUserMapData)
 	{
-		LoginPage loginPage = new LoginPage(driver);
+		LoginPage loginPage = new LoginPage(getDriver());
 		loginPage.setUserName(userName);
 		loginPage.setPassword(password);
 		loginPage.clickSubitButton();
 		
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+		WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
 				
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToUsersNavigationTab();
 		commonPageObjects.clickListResidentsLink();
 		
-		ListOfResidentsPage listOfResidents = new ListOfResidentsPage(driver);
+		ListOfResidentsPage listOfResidents = new ListOfResidentsPage(getDriver());
 				
 		listOfResidents.searchUserInputField(userOriginalFullName);
 		listOfResidents.goToUserDetailPageFromViewBtn(userOriginalFullName);
 		
 		listOfResidents.clickUpdateProfileLink();
 		
-		AddUserPage addUser = new AddUserPage(driver);
+		AddUserPage addUser = new AddUserPage(getDriver());
 		wait.until(ExpectedConditions.elementToBeClickable(listOfResidents.selectWingNumberWebElement()));
 		addUser.selectWingNumber(updatedUserMapData.get("Wing_House"));
 		addUser.setHouseNumber(updatedUserMapData.get("House_No"));
@@ -166,23 +166,23 @@ public class TC_ListResidents extends BaseClass{
 		addUser.setPANData(updatedUserMapData.get("PAN_No"));
 		listOfResidents.clickSaveBtn();
 		assertEquals(addUser.getSuccessMessage(), "Success! Profile updated successfully!");	
-		assertEquals(driver.getPageSource().contains(userOriginalFullName), false, "User Profile not updated");
+		assertEquals(getDriver().getPageSource().contains(userOriginalFullName), false, "User Profile not updated");
 			
 	}
 	
 	@Test(priority=5, dependsOnMethods="updateUserProfile", dataProvider="UpdateUserProfileTestData", enabled=true)
 	public void validateUpdatedUserOnListOfResidentsPageTable(Map<String,String> userMapData)
 	{
-		LoginPage loginPage = new LoginPage(driver);
+		LoginPage loginPage = new LoginPage(getDriver());
 		loginPage.setUserName(userName);
 		loginPage.setPassword(password);
 		loginPage.clickSubitButton();
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToUsersNavigationTab();
 		commonPageObjects.clickListResidentsLink();
 		
-		ListOfResidentsPage listOfResidents = new ListOfResidentsPage(driver);
+		ListOfResidentsPage listOfResidents = new ListOfResidentsPage(getDriver());
 		listOfResidents.searchUserInputField(userMapData.get("Full_Name"));
 		
 		WebElement userDetailInTableView = listOfResidents.getUserDetailsInTableView(userMapData.get("Full_Name"), userMapData.get("Mobile_No"), userMapData.get("Email"), userMapData.get("Wing_House"), userMapData.get("House_No"), userMapData.get("Role"));
@@ -192,20 +192,20 @@ public class TC_ListResidents extends BaseClass{
 	@Test(priority=6, dependsOnMethods="updateUserProfile", dataProvider="UpdateUserProfileTestData", enabled=true)
 	public void validateUpdatedUserDetailsFromViewBtn(Map<String,String> userMapData)
 	{
-		LoginPage loginPage = new LoginPage(driver);
+		LoginPage loginPage = new LoginPage(getDriver());
 		loginPage.setUserName(userName);
 		loginPage.setPassword(password);
 		loginPage.clickSubitButton();
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToUsersNavigationTab();
 		commonPageObjects.clickListResidentsLink();
 		
-		ListOfResidentsPage listOfResidents = new ListOfResidentsPage(driver);		
+		ListOfResidentsPage listOfResidents = new ListOfResidentsPage(getDriver());		
 		listOfResidents.searchUserInputField(userMapData.get("Full_Name"));
 		listOfResidents.goToUserDetailPageFromViewBtn(userMapData.get("Full_Name"));
 		
-		assertEquals(driver.getTitle(),"User Profile - Riddhi Co-op Housing Society Admin");
+		assertEquals(getDriver().getTitle(),"User Profile - Riddhi Co-op Housing Society Admin");
 		
 		assertEquals(listOfResidents.getUserFullNameHeaderOnUserProfilePage(userMapData.get("Full_Name"), userMapData.get("Role")).isDisplayed(), true, "UserProfile Header did not match");
 		
@@ -225,7 +225,7 @@ public class TC_ListResidents extends BaseClass{
 	
 	public void validateShowEntriesCount()
 	{	
-		LoginPage lpg = new LoginPage(driver);
+		LoginPage lpg = new LoginPage(getDriver());
 		lpg.setUserName(userName);
 		log.info("Entering Username");
 		lpg.setPassword(password);
@@ -233,20 +233,20 @@ public class TC_ListResidents extends BaseClass{
 		lpg.clickSubitButton();
 		log.info("Clicking Submit Button");
 		
-		CommonPageObjects commonPageObjects = new CommonPageObjects(driver);
+		CommonPageObjects commonPageObjects = new CommonPageObjects(getDriver());
 		commonPageObjects.navigateToSectionsNavigationTab();
 		
-		selectShowEntries(10);
-		assertEquals(getRowCountTable()<=10, true, "Show Entries is not working as expected");
+		commonPageObjects.selectShowEntries(10);
+		assertEquals(commonPageObjects.getRowCountTable()<=10, true, "Show Entries is not working as expected");
 				
-		selectShowEntries(25);
-		assertEquals(getRowCountTable()<=25, true, "Show Entries is not working as expected");
+		commonPageObjects.selectShowEntries(25);
+		assertEquals(commonPageObjects.getRowCountTable()<=25, true, "Show Entries is not working as expected");
 		
-		selectShowEntries(50);
-		assertEquals(getRowCountTable()<=50, true, "Show Entries is not working as expected");
+		commonPageObjects.selectShowEntries(50);
+		assertEquals(commonPageObjects.getRowCountTable()<=50, true, "Show Entries is not working as expected");
 		
-		selectShowEntries(100);
-		assertEquals(getRowCountTable()<=100, true, "Show Entries is not working as expected");
+		commonPageObjects.selectShowEntries(100);
+		assertEquals(commonPageObjects.getRowCountTable()<=100, true, "Show Entries is not working as expected");
 		
 	}
 	
